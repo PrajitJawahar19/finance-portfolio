@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prajit Jawahar · FP&A Portfolio</title>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --ground:#EEF2F8; --panel:#FFFFFF; --panel-2:#F5F8FC; --inset:#EAF0F7;
+  --ink:#0F1E33; --muted:#51607A; --faint:#8493AC;
+  --line:#DBE3EF; --line-2:#E7EDF6;
+  --accent:#1E5AA8; --accent-ink:#164A8C; --accent-soft:#E1ECF9;
+  --pos:#1C8C5A; --pos-soft:#DEF0E7; --neg:#C43850; --neg-soft:#F7E1E5; --warn:#B07A1E; --warn-soft:#F5EAD6;
+  --shadow:0 1px 2px rgba(20,25,45,.05), 0 12px 30px -12px rgba(20,25,45,.14);
+  --shadow-lg:0 30px 60px -24px rgba(20,25,45,.28);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#070D19; --panel:#0F1B30; --panel-2:#0C1526; --inset:#0B1322;
+    --ink:#E8EEF8; --muted:#93A2BC; --faint:#5E708C;
+    --line:#1E2E48; --line-2:#182642;
+    --accent:#4E8FD6; --accent-ink:#6AA4E4; --accent-soft:#0E2440;
+    --pos:#31C07A; --pos-soft:#0E2A20; --neg:#FF6C82; --neg-soft:#2C1620; --warn:#E3B357; --warn-soft:#2A2113;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 18px 40px -18px rgba(0,0,0,.6);
+    --shadow-lg:0 40px 80px -30px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="light"]{
+  --ground:#EEF2F8; --panel:#FFFFFF; --panel-2:#F5F8FC; --inset:#EAF0F7;
+  --ink:#0F1E33; --muted:#51607A; --faint:#8493AC; --line:#DBE3EF; --line-2:#E7EDF6;
+  --accent:#1E5AA8; --accent-ink:#164A8C; --accent-soft:#E1ECF9;
+  --pos:#1C8C5A; --pos-soft:#DEF0E7; --neg:#C43850; --neg-soft:#F7E1E5; --warn:#B07A1E; --warn-soft:#F5EAD6;
+  --shadow:0 1px 2px rgba(20,25,45,.05), 0 12px 30px -12px rgba(20,25,45,.14);
+  --shadow-lg:0 30px 60px -24px rgba(20,25,45,.28);
+}
+:root[data-theme="dark"]{
+  --ground:#070D19; --panel:#0F1B30; --panel-2:#0C1526; --inset:#0B1322;
+  --ink:#E8EEF8; --muted:#93A2BC; --faint:#5E708C; --line:#1E2E48; --line-2:#182642;
+  --accent:#4E8FD6; --accent-ink:#6AA4E4; --accent-soft:#0E2440;
+  --pos:#31C07A; --pos-soft:#0E2A20; --neg:#FF6C82; --neg-soft:#2C1620; --warn:#E3B357; --warn-soft:#2A2113;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 18px 40px -18px rgba(0,0,0,.6);
+  --shadow-lg:0 40px 80px -30px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--sans); line-height:1.55; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(60% 42% at 82% -6%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(52% 40% at 8% 4%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 66%);
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:.5;
+  background-image:linear-gradient(var(--line-2) 1px, transparent 1px), linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(120% 80% at 50% 0%, #000 0%, transparent 72%);
+          mask-image:radial-gradient(120% 80% at 50% 0%, #000 0%, transparent 72%);
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px}
+a{color:inherit}
+.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* ============ TOP BAR ============ */
+.topbar{
+  position:sticky; top:0; z-index:40; backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--ground) 78%, transparent);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{display:flex; align-items:center; gap:18px; height:60px}
+.brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:-.01em; white-space:nowrap}
+.brand .dot{width:10px; height:10px; border-radius:3px; background:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%, transparent)}
+.brand small{display:block; font-weight:500; font-size:11px; color:var(--muted); letter-spacing:.02em}
+.nav{margin-left:auto; display:flex; align-items:center; gap:6px; flex-wrap:wrap}
+.chip{
+  font:600 12.5px/1 var(--sans); color:var(--muted); background:transparent;
+  border:1px solid var(--line); padding:8px 13px; border-radius:999px; cursor:pointer;
+  transition:.18s ease; letter-spacing:.01em; white-space:nowrap;
+}
+.chip:hover{color:var(--ink); border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+.iconbtn{
+  width:38px; height:38px; display:grid; place-items:center; border-radius:10px; cursor:pointer;
+  border:1px solid var(--line); background:var(--panel); color:var(--ink); transition:.18s;
+}
+.iconbtn:hover{border-color:var(--accent); color:var(--accent)}
+.nav-filters{display:flex; gap:6px; flex-wrap:wrap}
+
+/* ============ HERO ============ */
+.hero{padding:56px 0 30px; position:relative}
+.eyebrow{
+  font:700 12px/1 var(--mono); letter-spacing:.24em; text-transform:uppercase; color:var(--accent-ink);
+  display:inline-flex; align-items:center; gap:9px;
+}
+.eyebrow::before{content:""; width:26px; height:1.5px; background:var(--accent)}
+.hero h1{
+  font-family:var(--serif); font-weight:600; letter-spacing:-.02em; text-wrap:balance;
+  font-size:clamp(34px, 5.6vw, 62px); line-height:1.03; margin:16px 0 0;
+}
+.hero h1 em{font-style:italic; color:var(--accent-ink)}
+.lede{max-width:60ch; color:var(--muted); font-size:clamp(15px,1.7vw,18px); margin:18px 0 0}
+.lede b{color:var(--ink); font-weight:600}
+.hero-meta{margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; color:var(--faint); font-size:13px}
+.hero-meta .tag{display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line); border-radius:999px; padding:5px 11px; color:var(--muted)}
+.hero-meta .tag b{color:var(--ink); font-weight:600}
+
+/* stat rail */
+.stats{
+  display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin:34px 0 8px;
+}
+.stat{
+  background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:18px 18px 16px;
+  box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.stat::after{content:""; position:absolute; left:0; top:0; width:100%; height:3px;
+  background:linear-gradient(90deg, var(--accent), transparent)}
+.stat .k{font:700 clamp(22px,2.7vw,30px)/1 var(--mono); letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+.stat .l{margin-top:7px; font-size:12px; color:var(--muted); letter-spacing:.01em}
+
+/* ============ SECTION HEAD ============ */
+.section-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin:46px 0 20px}
+.section-head h2{font-family:var(--serif); font-weight:600; font-size:clamp(20px,2.4vw,26px); letter-spacing:-.01em; margin:0}
+.section-head p{color:var(--muted); font-size:13.5px; margin:0}
+.count-note{color:var(--faint); font:600 12px/1 var(--mono)}
+
+/* ============ CARDS ============ */
+.grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px}
+.topic{margin:0 0 6px}
+.topic-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin:44px 0 18px; padding-bottom:12px; border-bottom:1px solid var(--line)}
+.topic-head h2{font-family:var(--serif); font-weight:600; font-size:clamp(20px,2.6vw,28px); letter-spacing:-.01em; margin:0}
+.topic-head p{color:var(--muted); font-size:13px; margin:5px 0 0}
+.topic-count{color:var(--accent-ink); font:700 12px/1 var(--mono); white-space:nowrap; border:1px solid var(--line); border-radius:999px; padding:7px 11px}
+.card{
+  grid-column:span 1; background:var(--panel); border:1px solid var(--line); border-radius:20px;
+  box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column;
+  transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s, border-color .22s;
+}
+.card:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--accent) 50%, var(--line))}
+.card.hide{display:none}
+.card-top{padding:20px 20px 0; display:flex; align-items:flex-start; gap:14px}
+.idx{font:700 13px/1 var(--mono); color:var(--accent-ink); border:1px solid var(--line); border-radius:8px; padding:7px 9px; letter-spacing:.02em; flex:none}
+.card-eyebrow{font:700 10.5px/1 var(--mono); letter-spacing:.2em; text-transform:uppercase; color:var(--faint)}
+.card h3{font-family:var(--serif); font-weight:600; font-size:20px; letter-spacing:-.01em; margin:7px 0 0; line-height:1.15}
+.card .q{color:var(--muted); font-size:13.5px; margin:9px 0 0}
+.tags{display:flex; gap:7px; flex-wrap:wrap; padding:14px 20px 0}
+.t{font:600 11px/1 var(--sans); color:var(--muted); background:var(--inset); border:1px solid var(--line-2); border-radius:999px; padding:5px 10px}
+
+/* chart panel */
+.chartbox{margin:16px 20px 0; background:var(--panel-2); border:1px solid var(--line-2); border-radius:14px; padding:14px 14px 10px; position:relative}
+.chartbox .cx-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px}
+.chartbox .cx-title{font:600 11px/1 var(--mono); letter-spacing:.04em; color:var(--faint); text-transform:uppercase}
+.legend{display:flex; gap:12px; align-items:center}
+.legend span{display:inline-flex; align-items:center; gap:6px; font-size:11px; color:var(--muted)}
+.legend i{width:14px; height:3px; border-radius:2px; display:inline-block}
+svg.chart{display:block; width:100%; height:auto}
+.chart .axis{stroke:var(--line); stroke-width:1}
+.chart .grid-l{stroke:var(--line-2); stroke-width:1}
+.chart text{fill:var(--faint); font-family:var(--mono); font-size:9px}
+
+/* result strip */
+.result{display:flex; gap:12px; align-items:flex-start; padding:16px 20px 0}
+.result .badge{flex:none; margin-top:2px; font:700 10px/1 var(--mono); letter-spacing:.08em; padding:6px 8px; border-radius:7px; text-transform:uppercase}
+.badge.pos{color:var(--pos); background:var(--pos-soft)}
+.badge.warn{color:var(--warn); background:var(--warn-soft)}
+.badge.neg{color:var(--neg); background:var(--neg-soft)}
+.result p{margin:0; font-size:13.5px; color:var(--ink)}
+.result p b{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* scenario toggle (card 3) */
+.scenario{display:flex; gap:8px; padding:14px 20px 0; align-items:center; flex-wrap:wrap}
+.scenario .sbtn{font:700 11.5px/1 var(--mono); letter-spacing:.04em; border:1px solid var(--line); background:var(--panel); color:var(--muted); padding:8px 12px; border-radius:9px; cursor:pointer; transition:.16s}
+.scenario .sbtn:hover{border-color:var(--accent); color:var(--ink)}
+.scenario .sbtn[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#FFFFFF}
+:root[data-theme="dark"] .scenario .sbtn[aria-pressed="true"]{color:#08131F}
+.scenario .sval{margin-left:auto; font:700 18px/1 var(--mono); color:var(--ink)}
+
+.card-actions{margin-top:auto; padding:18px 20px 20px; display:flex; gap:10px; align-items:center}
+.btn{
+  font:600 13px/1 var(--sans); border-radius:11px; padding:11px 15px; cursor:pointer; border:1px solid transparent;
+  display:inline-flex; align-items:center; gap:8px; transition:.18s; text-decoration:none;
+}
+.btn-primary{background:var(--accent); color:#FFFFFF; border-color:var(--accent)}
+.btn-primary:hover{filter:brightness(1.06); transform:translateY(-1px)}
+.btn-ghost{background:transparent; color:var(--ink); border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--accent); color:var(--accent-ink)}
+.btn svg{width:15px; height:15px}
+.spacer{margin-left:auto}
+.filelabel{font:600 11px/1 var(--mono); color:var(--faint)}
+
+/* detail drawer */
+.detail{max-height:0; overflow:hidden; transition:max-height .34s ease; border-top:0 solid var(--line)}
+.detail.open{max-height:900px; border-top:1px solid var(--line)}
+.detail-inner{padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.detail h4{font:700 11px/1 var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--accent-ink); margin:0 0 9px}
+.detail p{margin:0; font-size:13.5px; color:var(--muted)}
+.detail li{font-size:13px; color:var(--ink); margin:6px 0; list-style:none; padding-left:18px; position:relative}
+.detail li::before{content:""; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:2px; background:var(--accent)}
+.detail ul{margin:0; padding:0}
+.skills{display:flex; gap:7px; flex-wrap:wrap; margin-top:4px}
+.skills .t{background:var(--accent-soft); border-color:transparent; color:var(--accent-ink)}
+.detail .full{grid-column:1 / -1}
+
+/* ============ CONTROLS / TILES / MODAL ============ */
+.tiles-controls{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+.filterbar{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 22px}
+.select{position:relative; display:inline-flex}
+.select select{appearance:none;-webkit-appearance:none; font:600 13px/1 var(--sans); color:var(--ink); background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:11px 36px 11px 14px; cursor:pointer; min-width:240px; max-width:78vw}
+.select select:hover{border-color:var(--accent)}
+.select::after{content:"\25BE"; position:absolute; right:13px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; font-size:11px}
+.tgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:14px}
+.tile{text-align:left; background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px 16px 14px; box-shadow:var(--shadow); cursor:pointer; display:flex; flex-direction:column; gap:9px; min-height:150px; transition:transform .18s cubic-bezier(.2,.7,.3,1), box-shadow .18s, border-color .18s; font-family:inherit; color:inherit}
+.tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--accent) 50%,var(--line))}
+.tile-top{display:flex; align-items:center; gap:10px}
+.tile .idx{font:700 12px/1 var(--mono); color:var(--accent-ink); border:1px solid var(--line); border-radius:7px; padding:6px 8px}
+.tile-eyebrow{font:700 9.5px/1 var(--mono); letter-spacing:.16em; text-transform:uppercase; color:var(--faint)}
+.tile h3{font-family:var(--serif); font-weight:600; font-size:16.5px; letter-spacing:-.01em; margin:0; line-height:1.2}
+.tile .tq{color:var(--muted); font-size:12.5px; margin:0; flex:1}
+.tile-foot{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:2px}
+.tile .badge{font:700 9px/1 var(--mono); letter-spacing:.06em; padding:5px 7px; border-radius:6px; text-transform:uppercase}
+.tile .open-x{font:600 11.5px/1 var(--sans); color:var(--accent-ink)}
+.modal{position:fixed; inset:0; z-index:80; display:none; align-items:flex-start; justify-content:center; padding:40px 16px; overflow-y:auto}
+.modal.open{display:flex}
+.modal-scrim{position:fixed; inset:0; background:color-mix(in srgb,#05070d 60%, transparent); backdrop-filter:blur(4px)}
+.modal-card{position:relative; z-index:1; width:min(720px,100%); background:var(--panel); border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow-lg); overflow:hidden; animation:pop .22s cubic-bezier(.2,.7,.3,1)}
+@keyframes pop{from{opacity:0; transform:translateY(12px) scale(.985)} to{opacity:1; transform:none}}
+.modal-head{display:flex; align-items:flex-start; gap:14px; padding:22px 22px 0}
+.modal-head .idx{font:700 13px/1 var(--mono); color:var(--accent-ink); border:1px solid var(--line); border-radius:8px; padding:7px 9px; flex:none}
+.modal-title{font-family:var(--serif); font-weight:600; font-size:22px; letter-spacing:-.01em; margin:6px 0 0; line-height:1.15}
+.modal-close{margin-left:auto; width:34px; height:34px; border-radius:9px; border:1px solid var(--line); background:var(--panel); color:var(--muted); cursor:pointer; font-size:15px; flex:none}
+.modal-close:hover{border-color:var(--accent); color:var(--accent)}
+.modal-body{padding:14px 22px 24px}
+.modal-q{color:var(--muted); font-size:14px; margin:8px 0 0}
+.modal-body .tags{padding:12px 0 0}
+.modal-body .chartbox{margin:14px 0 0}
+.modal-body .result{padding:14px 0 0}
+.modal-body .detail-inner{padding:16px 0 0}
+.modal-body .card-actions{padding:18px 0 0; margin-top:0}
+.drive-preview{width:100%; height:420px; border:1px solid var(--line); border-radius:14px; margin-top:14px; background:var(--panel-2)}
+.cp-note{font:600 11px/1 var(--sans); opacity:.9; margin-left:6px}
+@media (max-width:520px){ .modal{padding:14px 8px} .modal-body .detail-inner{grid-template-columns:1fr} }
+
+/* ============ METHOD / FOOTER ============ */
+.method{margin:52px 0 0; background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:28px; box-shadow:var(--shadow)}
+.method-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:18px}
+.method h5{font:700 11px/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--accent-ink); margin:0 0 8px}
+.method p{margin:0; font-size:13px; color:var(--muted)}
+footer{padding:40px 0 60px; color:var(--faint); font-size:12.5px; text-align:center}
+footer .contact{display:flex; gap:8px 16px; justify-content:center; align-items:center; flex-wrap:wrap; color:var(--muted); font-size:14px; padding-bottom:14px; margin-bottom:14px; border-bottom:1px solid var(--line)}
+footer .contact strong{color:var(--ink); font-size:15px; letter-spacing:-.01em}
+footer .contact a{color:var(--accent-ink); text-decoration:none; font-weight:600}
+footer .contact a:hover{text-decoration:underline}
+footer .disc{max-width:70ch; margin:12px auto 0; line-height:1.6}
+
+@media (max-width:880px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr}
+  .detail-inner{grid-template-columns:1fr}
+  .method-grid{grid-template-columns:1fr 1fr}
+  .nav-filters{display:none}
+}
+@media (max-width:520px){
+  .stats{grid-template-columns:1fr 1fr}
+  .method-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important; animation:none !important}
+}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:6px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <span class="dot"></span>
+      <span>Prajit Jawahar<small>FP&amp;A · Financial Modelling Portfolio</small></span>
+    </div>
+    <nav class="nav">
+      <button class="iconbtn" id="theme" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Valuation · Forecasting · Revenue Management</span>
+    <h1>Turning financial data into <em>decisions</em>, not just reports.</h1>
+    <p class="lede">Thirty-one hands-on projects across nine skill areas, from FP&amp;A and valuation to revenue management and ETF analytics.
+      Each is a working Excel file with live formulas, and they all centre on one fictional company, <b>Helios Consumer GmbH</b>,
+      so the numbers connect across the whole set.</p>
+    <div class="hero-meta">
+      <span class="tag"><b>Excel-native</b> · every figure formula-driven</span>
+      <span class="tag"><b>Interactive</b> · scenarios &amp; drill-downs</span>
+      <span class="tag"><b>Sample data</b> · illustrative, not real accounts</span>
+    </div>
+
+    <div class="stats" id="stats">
+      <div class="stat"><div class="k" data-count="31" data-suffix="">0</div><div class="l">Projects</div></div>
+      <div class="stat"><div class="k" data-count="49.5" data-prefix="€" data-suffix="M" data-dec="1">0</div><div class="l">Revenue modelled</div></div>
+      <div class="stat"><div class="k" data-count="12" data-suffix="mo">0</div><div class="l">Rolling forecast</div></div>
+      <div class="stat"><div class="k" data-count="9" data-suffix="">0</div><div class="l">Skill areas</div></div>
+      <div class="stat"><div class="k" data-count="100" data-suffix="%">0</div><div class="l">Formula-driven</div></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="section-head">
+    <div>
+      <h2>The projects</h2>
+      <p>Browse by skill area, or jump straight to any project. Click a tile for the detail and the Excel file.</p>
+    </div>
+    <div class="tiles-controls">
+      <span class="select"><select id="projectSelect" aria-label="Jump to a project"><option value="">Jump to a project…</option></select></span>
+      <span class="count-note" id="countnote"></span>
+    </div>
+  </div>
+  <div class="filterbar" id="filters" role="group" aria-label="Filter by skill area"></div>
+  <div id="sections"></div>
+
+  <div class="method">
+    <span class="eyebrow">How these were built</span>
+    <div class="method-grid">
+      <div><h5>Real formulas</h5><p>No hard-coded results: SUMIFS, INDEX/MATCH, CHOOSE and ratio logic, so every sheet recalculates when an input changes.</p></div>
+      <div><h5>Colour convention</h5><p>Blue for inputs, black for formulas, green for cross-sheet links, yellow for cells to fill: the standard analyst workbook grammar.</p></div>
+      <div><h5>One company</h5><p>All ten projects centre on Helios Consumer GmbH, so the planning, valuation, portfolio, strategy and analytics work reconciles to one story.</p></div>
+      <div><h5>Reads at a glance</h5><p>Auto-generated commentary, Favourable/Unfavourable flags and covenant status turn raw output into an actual point of view.</p></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="contact">
+      <strong>Prajit Jawahar</strong>
+      <span>MBA candidate · Finance &amp; Controlling / FP&amp;A</span>
+      <a href="mailto:prajitjawahar@gmail.com">prajitjawahar@gmail.com</a>
+      <a href="https://www.linkedin.com/in/jprajit007" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://drive.google.com/drive/folders/19icCK-YlrAs90ooFdu4j8Hc1NrGRw0n3" target="_blank" rel="noopener" id="driveFolder">Excel models (Drive)</a>
+    </div>
+    <p class="disc">Helios Consumer GmbH is a fictional company created for this portfolio. All figures are illustrative sample data
+      that demonstrate modelling technique and do not represent any real business. Open each workbook in Excel, Google Sheets or Numbers;
+      formulas recalculate on open.</p>
+  </footer>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Project detail">
+    <div class="modal-scrim"></div>
+    <div class="modal-card"><div class="modal-head"></div><div class="modal-body"></div></div>
+  </div>
+</main>
+
+<script>
+/* ============ DATA ============ */
+const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const PROJECTS=[
+ {
+  id:1, cat:["FP&A"], eyebrow:"Variance Analysis",
+  title:"Budget vs. Actual: Variance Analysis",
+  q:"Where did FY2025 land versus plan, and was each gap good news or bad?",
+  file:"01_Budget_vs_Actual_Variance_Analysis.xlsx",
+  tags:["P&L bridge","F/U flags","Seasonality"],
+  chart:{type:"dualline", title:"Monthly revenue · budget vs actual (€000)",
+    a:[3360,3360,3840,3840,3840,3840,3600,3600,4080,4320,4800,5520],
+    b:[3300,3450,3900,3780,3960,3900,3700,3540,4250,4480,4950,6290],
+    la:"Budget", lb:"Actual"},
+  result:{badge:"warn", tag:"Mixed", html:"Revenue <b>+3.1%</b> (€1.5M) ahead of plan, but <b>EBITDA €0.23M short</b> as COGS and marketing outpaced the top-line beat."},
+  detail:{
+   built:"A full P&L bridge from budget to actual with € and % variances, an automatic Favourable / Unfavourable flag on every line, and a monthly revenue view spread on a seasonality curve.",
+   tech:["Signed P&L bridge (costs negative → a positive variance is always favourable)","Variance in € and %, per line and subtotal","Automatic F/U flag with conditional formatting","Annual budget spread by seasonality shares","Written insights generated from the numbers"],
+   skills:["Variance analysis","Management reporting","Excel logic"]
+  }
+ },
+ {
+  id:2, cat:["FP&A"], eyebrow:"Liquidity · Treasury",
+  title:"12-Month Rolling Cash Flow Forecast",
+  q:"Can the business fund itself all year without breaching its cash covenant?",
+  file:"02_Rolling_12M_Cash_Flow_Forecast.xlsx",
+  tags:["Direct method","AR/AP lags","Covenant test"],
+  chart:{type:"covenant", title:"Closing cash vs. €2.0M covenant (€000)",
+    a:[4189,4454,4163,4542,5009,5088,5431,5713,5374,6048,6919,8017], cov:2000, la:"Closing cash", lb:"Covenant"},
+  result:{badge:"pos", tag:"On track", html:"Cash grows <b>€3.0M → €8.0M</b>; the tightest month is March with <b>€2.2M headroom</b> above the €2.0M covenant."},
+  detail:{
+   built:"A driver-based direct cash forecast: collections and supplier payments modelled with real timing lags, the balance rolled forward month to month, and every closing balance tested against a minimum-cash loan covenant.",
+   tech:["Direct-method cash build from revenue drivers","Collections split 45% in-month / 55% next month","Supplier payments lagged one month behind COGS","Rolling opening → closing balance","Covenant headroom test with OK / Breach status flag"],
+   skills:["Cash forecasting","Working capital","Liquidity risk"]
+  }
+ },
+ {
+  id:3, cat:["FP&A"], eyebrow:"Forecasting · Scenarios",
+  title:"Driver-Based Revenue Forecast",
+  q:"How wide is the range of outcomes for next year, and what actually drives it?",
+  file:"03_Revenue_Forecast_Scenarios.xlsx",
+  tags:["Volume × price","Scenario switch","Sensitivity"],
+  chart:{type:"scenariobars", title:"FY2026 revenue by scenario (€M)",
+    labels:["Bear","Base","Bull"], vals:[46.1,53.0,57.7]},
+  scenario:true,
+  result:{badge:"pos", tag:"Range", html:"FY2026 revenue spans <b>€46.1M</b> (Bear) to <b>€57.7M</b> (Bull), an <b>€11.6M swing</b> driven mostly by volume growth."},
+  detail:{
+   built:"A volume × price driver tree flexed across Base, Bull and Bear cases from a single switch cell, then spread across the twelve months on a seasonality curve.",
+   tech:["Revenue = Volume × ASP driver tree","One-cell CHOOSE scenario switch (1 / 2 / 3)","Base / Bull / Bear computed side by side","Selected case spread by monthly seasonality","Sensitivity range read straight off the model"],
+   skills:["Forecasting","Scenario modelling","Sensitivity analysis"]
+  }
+ },
+ {
+  id:4, cat:["FP&A"], eyebrow:"Budgeting · OpEx",
+  title:"Departmental Operating Budget Builder",
+  q:"What does the operating budget look like, built bottom-up from headcount?",
+  file:"04_Departmental_Budget_Builder.xlsx",
+  tags:["Headcount-driven","Roll-up","YoY variance"],
+  chart:{type:"hbars", title:"FY2026 budget by department (€000)",
+    labels:["Operations","Sales","R&D","Marketing","IT","Finance & Admin"],
+    vals:[2926,2445,1997,1569,1293,1105]},
+  result:{badge:"pos", tag:"Built up", html:"<b>€11.3M</b> FY2026 OpEx across six departments (<b>+€0.42M YoY</b>); Operations and Sales are 47% of spend."},
+  detail:{
+   built:"A reusable template that builds each department's budget from headcount, salary and a benefits load, rolls it up to a company OpEx number, shows each team's share of spend, and tracks the change versus prior year.",
+   tech:["Personnel = Headcount × Salary × (1 + benefits load)","Cost stack: personnel + travel + tools + facilities + other","Automatic company roll-up and % of total","YoY variance versus prior-year budget","Copy-a-block template: add departments in seconds"],
+   skills:["Budgeting","Cost management","Template design"]
+  }
+ },
+ {
+  id:5, cat:["FP&A"], eyebrow:"Performance · KPIs",
+  title:"Financial KPI Dashboard",
+  q:"What handful of metrics actually tell the story of the business?",
+  file:"05_Financial_KPI_Dashboard.xlsx",
+  tags:["Margins","Liquidity","Cash cycle"],
+  chart:{type:"margins", title:"Margin trend by quarter",
+    gross:[.389,.390,.392,.396], ebitda:[.115,.129,.129,.130], net:[.062,.075,.077,.083],
+    labels:["Q1","Q2","Q3","Q4"]},
+  result:{badge:"pos", tag:"Healthy", html:"<b>39% gross / 13% EBITDA</b> margin, <b>2.0x</b> current ratio, <b>41-day</b> cash-conversion cycle; DSO is the main lever."},
+  detail:{
+   built:"A quarterly dashboard that turns raw accounts into the profitability, liquidity and working-capital metrics a business steers by, including the full cash-conversion cycle, each with a plain-language takeaway.",
+   tech:["Gross / EBITDA / net margin trend","Current & quick ratio","DSO, DIO, DPO → cash-conversion cycle","Quarter-over-quarter and full-year views","KPI cards with auto-written commentary"],
+   skills:["KPI reporting","Ratio analysis","Financial storytelling"]
+  }
+ },
+ {
+  id:6, cat:["FP&A"], eyebrow:"Integrated 3-Statement Model",
+  title:"Integrated 3-Statement Model",
+  q:"Do the P&L, balance sheet and cash flow tell one connected story that ties out?",
+  file:"06_Integrated_3_Statement_Model.xlsx",
+  tags:["P&L + BS + CF","Roll-forward","Balances to €0"],
+  chart:{type:"grouped", title:"Revenue & net income by year (€000)",
+    labels:["FY24","FY25","FY26","FY27"],
+    series:[{name:"Revenue",vals:[45000,49500,52965,56143],color:"--faint"},
+            {name:"Net income",vals:[2888,3281,3564,3817],color:"--accent"}]},
+  result:{badge:"pos", tag:"Ties out", html:"Revenue grows <b>€45.0M → €56.1M</b> with net income of <b>€3.8M</b> by FY2027; the <b>balance check is €0</b> in every single year."},
+  detail:{
+   built:"The core FP&A build: a linked income statement, balance sheet and cash flow driven by one set of assumptions, rolled forward year on year, with a balance check that has to equal zero for the model to be trusted.",
+   tech:["Driver-based P&L from growth, margin and cost ratios","Working capital sized by DSO / DIO / DPO days","Balance-sheet roll-forward: PP&E, retained earnings, cash","Indirect cash flow linking net income back to the cash balance","Self-balancing, with no circular references"],
+   skills:["3-statement modelling","Integrated forecasting","Financial accounting"]
+  }
+ },
+ {
+  id:7, cat:["Valuation"], eyebrow:"Investment · Valuation",
+  title:"DCF & Comparable Company Valuation",
+  q:"What is Helios worth, intrinsically and against the market?",
+  file:"07_DCF_Comparable_Valuation.xlsx",
+  tags:["DCF","WACC / CAPM","Trading comps"],
+  chart:{type:"hbars", title:"Value per share by method (€)", labels:["DCF","EV/EBITDA","P/E"], vals:[18.0,19.5,19.1], prefix:"€", dec:1},
+  result:{badge:"pos", tag:"Triangulated", html:"Intrinsic DCF of <b>€18.0/share</b> lines up with market multiples of <b>€19.1 to €19.5</b>, a tight €18 to €20 range."},
+  detail:{
+   built:"An intrinsic DCF (unlevered free cash flow discounted at a CAPM-based WACC, with a Gordon-growth terminal value) cross-checked against trading comparables on EV/EBITDA and P/E, then triangulated to a share-price range.",
+   tech:["Unlevered FCF build: NOPAT plus D&A, less capex and working-capital investment","WACC from CAPM (cost of equity and after-tax cost of debt)","Gordon-growth terminal value","Enterprise value to equity value bridge","Trading comps on median EV/EBITDA and P/E"],
+   skills:["Valuation","Corporate finance","Capital markets"]
+  }
+ },
+ {
+  id:8, cat:["Portfolio"], eyebrow:"Wealth · Portfolio",
+  title:"Model Portfolio & Risk Dashboard",
+  q:"How do you balance return against risk across asset classes?",
+  file:"08_Portfolio_Risk_Dashboard.xlsx",
+  tags:["Asset allocation","Sharpe ratio","Drawdown"],
+  chart:{type:"hbars", title:"Strategic asset allocation (%)", labels:["Equities","Bonds","Real estate","Commodities","Cash"], vals:[45,25,12,8,10], suffix:"%", dec:0},
+  result:{badge:"pos", tag:"Balanced", html:"A 45/25/30 mix targets a <b>5.7% return</b> at <b>9.0% volatility</b> (Sharpe <b>0.41</b>); diversification pulls risk below equities alone."},
+  detail:{
+   built:"A multi-asset model portfolio measured the way a client sees it: expected return, volatility from a full five-asset correlation matrix, Sharpe ratio, and the worst drawdown over a sample year.",
+   tech:["Strategic allocation across five asset classes","Expected return via SUMPRODUCT of weights and returns","Portfolio volatility from a covariance contribution grid","Sharpe ratio versus the risk-free rate","Growth of €100,000 and maximum drawdown"],
+   skills:["Portfolio construction","Risk analysis","Wealth management"]
+  }
+ },
+ {
+  id:9, cat:["Strategy"], eyebrow:"Strategy · Market research",
+  title:"Market Entry Analysis (TAM / SAM / SOM)",
+  q:"Is a new market worth entering, and how big is the prize?",
+  file:"09_Market_Entry_Analysis.xlsx",
+  tags:["TAM/SAM/SOM","Competitor scorecard","Go / no-go"],
+  chart:{type:"hbars", title:"Market sizing (€M)", labels:["TAM","SAM","SOM"], vals:[1845,646,52], prefix:"€", suffix:"M", dec:0},
+  result:{badge:"pos", tag:"GO", html:"A <b>€1,845M</b> TAM narrows to a <b>€52M</b> obtainable market; a weighted decision score of <b>3.8/5</b> says GO."},
+  detail:{
+   built:"A market-entry case for a new category: top-down market sizing (TAM to SAM to SOM), a weighted competitor scorecard, a three-year revenue ramp, and a weighted go / no-go decision score.",
+   tech:["Top-down market sizing (TAM, SAM, SOM)","Weighted competitor scorecard via SUMPRODUCT","Three-year revenue ramp off the serviceable market","Weighted go / no-go decision framework","Clear recommendation against a scoring threshold"],
+   skills:["Strategy","Market research","Business case"]
+  }
+ },
+ {
+  id:10, cat:["Analytics"], eyebrow:"Data · Business intelligence",
+  title:"Sales Analytics Dashboard",
+  q:"How do you turn a raw transaction log into decisions?",
+  file:"10_Sales_Analytics_Dashboard.xlsx",
+  tags:["SUMIFS","KPIs","Region & product"],
+  chart:{type:"hbars", title:"Revenue by region (€000)", labels:["DACH","Nordics","Benelux"], vals:[3252,2363,1937]},
+  result:{badge:"pos", tag:"Insight-ready", html:"<b>€7.55M</b> across 18 orders, aggregated from raw transactions with SUMIFS; DACH leads and Q4 is the clear peak."},
+  detail:{
+   built:"A business-intelligence workflow that turns a raw transaction log into decision-ready analytics: revenue by region and product with SUMIFS, headline KPIs and a monthly trend, all live off the source data.",
+   tech:["SUMIFS aggregation straight from the raw log","KPI set: revenue, units, orders, average order value","Revenue by region and by product","Monthly revenue trend","Add a row and every metric updates"],
+   skills:["Data analysis","Business intelligence","Excel"]
+  }
+ },
+ {
+  id:11, cat:["Valuation"], eyebrow:"Investment · Private equity",
+  title:"Leveraged Buyout (LBO) Model",
+  q:"What return could a private-equity buyer make on Helios?",
+  file:"11_LBO_Model.xlsx",
+  tags:["Sources & uses","Cash sweep","MOIC & IRR"],
+  chart:{type:"hbars", title:"Sponsor equity: entry vs exit (€M)", labels:["Entry","Exit"], vals:[24.8,60.1], prefix:"€", suffix:"M", dec:1},
+  result:{badge:"pos", tag:"Returns", html:"Sponsor equity of <b>€24.8M</b> grows to <b>€60.1M</b> at exit: a <b>2.4x MOIC</b> and <b>19% IRR</b> over five years."},
+  detail:{built:"A private-equity buyout: fund the purchase with debt and equity, sweep free cash flow to pay down debt each year, then value the exit and measure the sponsor's return.",
+   tech:["Entry sources & uses at a chosen EV/EBITDA multiple","Debt sized by leverage (x EBITDA)","Annual free-cash-flow sweep to repay debt","Exit equity = exit EV less remaining debt","MOIC and IRR to the sponsor"],
+   skills:["LBO modelling","Private equity","Leveraged finance"]}
+ },
+ {
+  id:12, cat:["Valuation"], eyebrow:"Investment · M&A",
+  title:"M&A Accretion / Dilution",
+  q:"Would acquiring a target add to or dilute earnings per share?",
+  file:"12_MA_Accretion_Dilution.xlsx",
+  tags:["Cash/stock mix","Synergies","EPS impact"],
+  chart:{type:"hbars", title:"EPS: standalone vs pro-forma (€)", labels:["Standalone","Pro-forma"], vals:[1.23,1.45], prefix:"€", dec:2},
+  result:{badge:"pos", tag:"Accretive", html:"Blending target earnings and synergies lifts EPS from <b>€1.23</b> to <b>€1.45</b>: <b>+17% accretive</b>."},
+  detail:{built:"An acquisition test: fund a deal with a cash/stock mix, add financing costs and synergies, and compare combined earnings per share to the acquirer standalone.",
+   tech:["Offer value at a control premium","Cash (new debt) versus stock funding split","New shares issued and after-tax interest cost","After-tax synergies","Pro-forma EPS and accretion / dilution"],
+   skills:["M&A analysis","Deal structuring","Corporate finance"]}
+ },
+ {
+  id:13, cat:["Valuation"], eyebrow:"Investment · Relative value",
+  title:"Comparable Companies & Precedents",
+  q:"What does the market pay for businesses like Helios?",
+  file:"13_Comps_Precedent_Transactions.xlsx",
+  tags:["Trading comps","Precedent deals","Multiples"],
+  chart:{type:"hbars", title:"Implied value per share (€)", labels:["EV/EBITDA","EV/Revenue","Precedent","P/E"], vals:[19.7,19.3,22.0,20.7], prefix:"€", dec:1},
+  result:{badge:"pos", tag:"Market view", html:"Market multiples put Helios at <b>€19 to €22</b> per share, with precedent deals highest on control premia."},
+  detail:{built:"A market-based valuation: a universe of trading comparables and a set of precedent M&A transactions, each multiple applied to Helios and triangulated to a per-share range.",
+   tech:["Trading comps on EV/Revenue, EV/EBITDA, P/E","Precedent transactions with deal multiples","Median multiples applied to Helios metrics","Enterprise to equity to per-share bridge","Triangulated low / median / high range"],
+   skills:["Relative valuation","Benchmarking","Capital markets"]}
+ },
+ {
+  id:14, cat:["Portfolio"], eyebrow:"Wealth · Optimisation",
+  title:"Two-Asset Efficient Frontier",
+  q:"What mix of assets gives the best return for the risk?",
+  file:"14_Efficient_Frontier.xlsx",
+  tags:["Risk/return","Correlation","Optimal mix"],
+  chart:{type:"hbars", title:"Volatility by allocation (%)", labels:["100% bonds","50 / 50","100% equity"], vals:[5.0,8.7,16.0], suffix:"%", dec:1},
+  result:{badge:"pos", tag:"Optimised", html:"Blending assets cuts risk faster than return; the best risk-adjusted mix holds about <b>30% equities</b> (Sharpe <b>0.40</b>)."},
+  detail:{built:"The risk/return trade-off of an equity/bond mix: sweep the allocation from 0 to 100% equities, compute return and volatility at each point, and find the minimum-variance and maximum-Sharpe portfolios.",
+   tech:["Portfolio return and volatility across allocations","Two-asset variance with correlation","Minimum-variance portfolio","Maximum-Sharpe portfolio","Risk/return frontier"],
+   skills:["Portfolio optimisation","Modern portfolio theory","Asset allocation"]}
+ },
+ {
+  id:15, cat:["Portfolio"], eyebrow:"Wealth · Financial planning",
+  title:"Retirement & Goal-Based Plan",
+  q:"Will the savings plan actually fund the retirement goal?",
+  file:"15_Retirement_Goal_Plan.xlsx",
+  tags:["Future value","Required corpus","Funding gap"],
+  chart:{type:"hbars", title:"Projected vs required corpus (€000)", labels:["Projected","Required"], vals:[922,1066], prefix:"€", suffix:"k", dec:0},
+  result:{badge:"warn", tag:"Shortfall", html:"Current contributions reach <b>€922k</b> against a required <b>€1.07M</b>: <b>86% funded</b>, so a modest top-up closes the gap."},
+  detail:{built:"A client-facing retirement plan: grow current savings and monthly contributions to a corpus, compute the corpus needed for a target inflation-adjusted income, and show the surplus or gap.",
+   tech:["Future value of savings and contributions","Inflation-adjusted target income","Required corpus from an annuity present value","Real return in retirement","Funding ratio and gap"],
+   skills:["Financial planning","Wealth management","Goal-based advice"]}
+ },
+ {
+  id:16, cat:["Portfolio"], eyebrow:"Wealth · Fixed income",
+  title:"Bond Analytics: Duration & Convexity",
+  q:"How much does a bond move when interest rates change?",
+  file:"16_Bond_Analytics.xlsx",
+  tags:["Pricing","Duration","Convexity"],
+  chart:{type:"hbars", title:"Price at different yields (€)", labels:["YTM 5%","YTM 6%","YTM 7%"], vals:[1000,926,859], prefix:"€", dec:0},
+  result:{badge:"pos", tag:"Rate risk", html:"At a 6% yield the bond prices at <b>€926</b>; a <b>7.6 modified duration</b> means +100 bps costs about <b>€67</b>."},
+  detail:{built:"Price a coupon bond from its discounted cash flows and measure its interest-rate risk: Macaulay and modified duration, convexity, and the price move for a 100 bp shift in yields.",
+   tech:["Cash-flow discounting to a clean price","Macaulay and modified duration","Convexity","Duration / convexity price approximation","Yield sensitivity"],
+   skills:["Fixed income","Interest-rate risk","Bond maths"]}
+ },
+ {
+  id:17, cat:["Strategy"], eyebrow:"Strategy · Growth",
+  title:"Unit Economics: CAC, LTV & Payback",
+  q:"Does acquiring a customer actually pay off?",
+  file:"17_Unit_Economics_CAC_LTV.xlsx",
+  tags:["CAC","LTV","Payback"],
+  chart:{type:"hbars", title:"LTV vs CAC (€)", labels:["CAC","LTV"], vals:[400,2400], prefix:"€", dec:0},
+  result:{badge:"pos", tag:"Healthy", html:"Each customer costs <b>€400</b> and is worth <b>€2,400</b>: a <b>6.0x</b> LTV/CAC that pays back in about <b>4 months</b>."},
+  detail:{built:"The economics of a customer: acquisition cost, lifetime value from margin and churn, the LTV/CAC ratio, and the months to recover acquisition cost.",
+   tech:["CAC from spend and new customers","Lifetime from churn (1 / churn)","LTV from ARPA, gross margin and lifetime","LTV/CAC ratio and payback","12-month contribution curve"],
+   skills:["Unit economics","Growth strategy","SaaS metrics"]}
+ },
+ {
+  id:18, cat:["Strategy"], eyebrow:"Strategy · Investment appraisal",
+  title:"Capital Budgeting: NPV & IRR",
+  q:"Is a capital project worth the investment?",
+  file:"18_Capital_Budgeting_NPV_IRR.xlsx",
+  tags:["NPV","IRR","Payback"],
+  chart:{type:"hbars", title:"Project cash flows (€000)", labels:["Y1","Y2","Y3","Y4","Y5"], vals:[620,760,900,980,1050], prefix:"€", suffix:"k", dec:0},
+  result:{badge:"pos", tag:"Accept", html:"A <b>€2.4M</b> project returns an <b>NPV of €789k</b> and a <b>21% IRR</b>: above the 10% hurdle, so accept."},
+  detail:{built:"A capital-project appraisal: discount the cash flows to a net present value, solve for the internal rate of return, and compute payback, discounted payback and the profitability index.",
+   tech:["Discounted cash flows at the WACC","Net present value (NPV)","Internal rate of return (IRR)","Payback and profitability index","Accept / reject rule"],
+   skills:["Capital budgeting","Investment appraisal","Corporate finance"]}
+ },
+ {
+  id:19, cat:["Strategy"], eyebrow:"Strategy · Pricing",
+  title:"Pricing & Break-Even Analysis",
+  q:"What price maximises profit, and where is break-even?",
+  file:"19_Pricing_Break_Even.xlsx",
+  tags:["Break-even","Elasticity","Optimal price"],
+  chart:{type:"hbars", title:"Profit by price (€000)", labels:["€45","€55","€65","€70","€75"], vals:[123,181,196,197,194], prefix:"€", suffix:"k", dec:0},
+  result:{badge:"pos", tag:"Optimised", html:"Break-even is <b>12,000 units</b>; with elastic demand, profit peaks near a <b>€70</b> price point."},
+  detail:{built:"Find the price that makes money: contribution margin and break-even volume, then a price/elasticity grid that projects volume, revenue and profit to locate the profit-maximising price.",
+   tech:["Contribution margin and ratio","Break-even units and revenue","Target-profit volume","Price elasticity of demand","Profit-maximising price search"],
+   skills:["Pricing strategy","Break-even analysis","Commercial finance"]}
+ },
+ {
+  id:20, cat:["Analytics"], eyebrow:"Data · Customer analytics",
+  title:"Cohort & Retention Analysis",
+  q:"How well do customers stick around after signing up?",
+  file:"20_Cohort_Retention_Analysis.xlsx",
+  tags:["Cohort triangle","Retention curve","LTV"],
+  chart:{type:"hbars", title:"Retention by month (%)", labels:["M0","M1","M2","M3","M4","M5"], vals:[100,62,50,44,40,37], suffix:"%", dec:0},
+  result:{badge:"pos", tag:"Sticky", html:"Retention settles near <b>37%</b> by month 5 after the early drop; each cohort is worth about <b>€112</b> per customer in six months."},
+  detail:{built:"How customers stick around: a monthly cohort retention triangle, the average retention curve, and the cumulative revenue a cohort generates over its first six months.",
+   tech:["Cohort retention triangle","Average retention curve across cohorts","Cumulative revenue / LTV build","Retention KPIs"],
+   skills:["Cohort analysis","Retention","Customer analytics"]}
+ },
+ {
+  id:21, cat:["Analytics"], eyebrow:"Data · Segmentation",
+  title:"RFM Customer Segmentation",
+  q:"Which customers are the value core, and who is at risk?",
+  file:"21_RFM_Segmentation.xlsx",
+  tags:["R/F/M scoring","Segments","Targeting"],
+  chart:{type:"hbars", title:"Customers by segment", labels:["Champions","Loyal","At risk","Big spender","Lost","Promising"], vals:[3,3,3,2,2,2]},
+  result:{badge:"pos", tag:"Segmented", html:"Scoring on recency, frequency and value splits the base into <b>Champions, Loyal, At-risk</b> and more for targeted action."},
+  detail:{built:"Behavioural segmentation: score every customer on recency, frequency and monetary value, combine into an RFM score, label them into actionable segments, and summarise the base.",
+   tech:["R / F / M scoring with thresholds","Combined RFM score","Rule-based segment labels","Segment counts and average value","Targeting by segment"],
+   skills:["Customer segmentation","CRM analytics","Marketing analytics"]}
+ },
+ {
+  id:22, cat:["Analytics"], eyebrow:"Data · Forecasting",
+  title:"Demand Forecasting: Trend & Seasonality",
+  q:"How much demand should we plan for next year?",
+  file:"22_Demand_Forecasting.xlsx",
+  tags:["Regression","Seasonality","Forecast"],
+  chart:{type:"hbars", title:"Annual demand (units)", labels:["Year 1","Year 2","Year 3 (fcst)"], vals:[12860,14235,16668]},
+  result:{badge:"pos", tag:"Forecast", html:"A regression trend (R-squared <b>0.65</b>) plus seasonal indices projects about <b>16,700 units</b> next year, up from 14,235."},
+  detail:{built:"Forecast demand from history: fit a linear trend by regression (slope, intercept, R-squared), apply monthly seasonal indices, and project the next twelve months.",
+   tech:["Linear regression trend (SLOPE, INTERCEPT, RSQ)","Multiplicative seasonal indices","12-month forward forecast","Actual versus fitted fit check"],
+   skills:["Forecasting","Regression","Demand planning"]}
+ },
+ {
+  id:23, cat:["Enterprise & LRP"], eyebrow:"Enterprise · Long-range planning",
+  title:"7-Year Long-Range Plan",
+  q:"Which strategy builds the most long-term value, and what is the plan worth?",
+  file:"23_Long_Range_Plan.xlsx",
+  tags:["Integrated multi-year","Strategy scenarios","DCF value"],
+  chart:{type:"hbars", title:"Terminal enterprise value by strategy (€M)", labels:["Base","Accelerated","M&A-led"], vals:[71.9,96.9,119.6], prefix:"€", suffix:"M", dec:1},
+  result:{badge:"pos", tag:"Value", html:"Base-case DCF value of <b>€55.3M</b> (€17.9/share); across strategies, the M&A-led path builds the most long-term value (<b>~€120M</b> terminal EV)."},
+  detail:{built:"A seven-year integrated plan that flexes across strategic options (organic, accelerated investment, M&A-led), builds unlevered free cash flow and a DCF value, and compares the long-term value each strategy creates.",
+   tech:["7-year integrated P&L through to cash flow","One-cell strategic-scenario switch (CHOOSE)","Unlevered FCF and cumulative cash","DCF enterprise value and value per share","Strategic-options value comparison"],
+   skills:["Long-range planning","Corporate modelling","Value creation"]}
+ },
+ {
+  id:24, cat:["Enterprise & LRP"], eyebrow:"Enterprise · Capital structure",
+  title:"Capital Structure & WACC Optimization",
+  q:"How much leverage minimises the cost of capital without straining credit?",
+  file:"24_Capital_Structure_WACC.xlsx",
+  tags:["Levered beta","WACC curve","Credit metrics"],
+  chart:{type:"hbars", title:"WACC by leverage (%)", labels:["0x","1x","2x","3x","4x","5x"], vals:[8.4,8.24,8.14,8.10,8.11,8.18], suffix:"%", dec:1},
+  result:{badge:"pos", tag:"Optimised", html:"WACC bottoms at <b>8.1%</b> around <b>3x Debt/EBITDA</b>; beyond that a wider credit spread and higher equity risk outweigh the tax shield (coverage still 5.2x)."},
+  detail:{built:"Steps through leverage levels, re-levers beta, widens the credit spread, tracks credit metrics, and finds the capital structure that minimises WACC while keeping coverage healthy.",
+   tech:["Levered beta (Hamada) and CAPM cost of equity","Credit-spread widening with leverage","WACC curve across leverage levels","Credit metrics: Debt/EBITDA and interest coverage","WACC-minimising, value-maximising structure"],
+   skills:["Capital structuring","Cost of capital","Credit analysis"]}
+ },
+ {
+  id:25, cat:["Liquidity Control"], eyebrow:"Liquidity · Treasury",
+  title:"13-Week Rolling Cash Flow Forecast",
+  q:"Can we fund every one of the next 13 weeks and stay above the cash line?",
+  file:"25_13_Week_Cash_Flow_Forecast.xlsx",
+  tags:["Direct method","Weekly","Revolver headroom"],
+  chart:{type:"hbars", title:"Closing cash by week (€000)", labels:["W1","W5","W9","W13"], vals:[2500,3435,3870,4865], prefix:"€", dec:0},
+  result:{badge:"pos", tag:"In control", html:"Cash builds from <b>€2.5M</b> to <b>€4.9M</b> over 13 weeks; the low point holds well above the €1.0M minimum, with €3.0M of revolver behind it."},
+  detail:{built:"The treasury team's core tactical tool: a direct-method, week-by-week forecast of receipts and disbursements over 13 weeks, rolling the balance forward, tracking revolver headroom, and flagging any week that breaches the minimum-cash line.",
+   tech:["Direct-method weekly receipts and disbursements","Rolling opening and closing cash","Minimum-cash covenant test with weekly status flags","Revolver availability and total liquidity","Lumpy items: payroll, rent, tax, capex, debt service"],
+   skills:["Liquidity management","Treasury","Cash forecasting"]}
+ },
+ {
+  id:26, cat:["Liquidity Control"], eyebrow:"Liquidity · Forecast control",
+  title:"Forecast Accuracy & Variance Tracker",
+  q:"How tightly is the rolling forecast actually being run?",
+  file:"26_Forecast_Accuracy_Variance.xlsx",
+  tags:["Forecast vs actual","MAPE","Hit-rate"],
+  chart:{type:"hbars", title:"Forecast quality (%)", labels:["Accuracy","Hit-rate ±5%"], vals:[95.7,75.0], suffix:"%", dec:0},
+  result:{badge:"pos", tag:"Tight", html:"The forecast runs at <b>95.7% accuracy</b> (4.3% MAPE), with <b>75%</b> of weeks inside ±5%; a small positive bias flags where to sharpen the next reforecast."},
+  detail:{built:"The discipline behind owning a rolling forecast: track weekly forecast vs actual cash flow, measure the variance and forecast accuracy (MAPE and hit-rate), and carry cumulative variance so the next reforecast is sharper.",
+   tech:["Weekly forecast vs actual with variance € and %","MAPE and forecast accuracy","Hit-rate within a tolerance band","Cumulative variance and net bias","Rolling reforecast discipline"],
+   skills:["Forecast governance","Variance analysis","Treasury control"]}
+ },
+ {
+  id:27, cat:["Revenue Management"], eyebrow:"Revenue Mgmt · Demand forecasting",
+  title:"Demand Forecasting & Unconstraining",
+  q:"What is true demand when the hotel keeps selling out?",
+  file:"27_Demand_Forecasting_Unconstraining.xlsx",
+  tags:["Seasonality × DOW","Unconstraining","Spill / pickup"],
+  chart:{type:"hbars", title:"Forward demand by day (rooms)", labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], vals:[164,170,178,193,241,251,184], dec:0},
+  result:{badge:"pos", tag:"Recovered", html:"The DOW × seasonality model forecasts at <b>93% accuracy</b>; weekends exceed the 200-room capacity, and unconstraining recovers <b>~120</b> turned-away rooms of hidden demand."},
+  detail:{built:"Forecasts daily rooms demand with a seasonality and day-of-week model, then unconstrains (detruncates) demand on sold-out dates to recover the true demand that was turned away, and measures forecast accuracy.",
+   tech:["Multiplicative seasonality x day-of-week model","Demand unconstraining / detruncation on censored dates","Turn-away (spill) estimation","Forward pickup forecast against capacity","MAPE forecast accuracy"],
+   skills:["Demand forecasting","Unconstraining","Revenue management"]}
+ },
+ {
+  id:28, cat:["Revenue Management"], eyebrow:"Revenue Mgmt · Yield & inventory",
+  title:"Fare-Class Protection & Overbooking",
+  q:"How should a fixed-capacity flight allocate seats and overbook?",
+  file:"28_Fare_Class_Protection_Overbooking.xlsx",
+  tags:["EMSR-b","Booking limits","Overbooking"],
+  chart:{type:"hbars", title:"Fare-class booking limits (seats)", labels:["Y","M","B","Q"], vals:[150,131,90,30], dec:0},
+  result:{badge:"pos", tag:"Optimised", html:"EMSR-b nests booking limits at <b>150 / 131 / 90 / 30</b> across fare classes; overbooking to <b>~162 seats</b> offsets the 8% no-show rate, lifting net revenue to <b>€37.3k</b>."},
+  detail:{built:"Sets nested protection levels and booking limits across fare classes with the EMSR-b heuristic, then chooses the overbooking level that balances denied-boarding cost against empty-seat spoilage.",
+   tech:["EMSR-b protection with demand-weighted fares","Aggregated class demand (mean and variance)","NORMSINV service levels and nested booking limits","Overbooking / authorised-capacity optimisation","Denied-boarding versus spoilage trade-off"],
+   skills:["Yield management","Inventory control","Revenue optimisation"]}
+ },
+ {
+  id:29, cat:["Revenue Management"], eyebrow:"Revenue Mgmt · Pricing & RevPAR",
+  title:"Revenue Optimisation: RevPAR & Price/Mix",
+  q:"How do you price and allocate rooms to maximise RevPAR?",
+  file:"29_Revenue_Optimisation_RevPAR.xlsx",
+  tags:["Elasticity","Displacement","RevPAR / ADR"],
+  chart:{type:"hbars", title:"RevPAR by rate index (€)", labels:["0.9x","1.0x","1.1x","1.2x","1.3x"], vals:[189,210,231,239,233], prefix:"€", dec:0},
+  result:{badge:"pos", tag:"Maximised", html:"Filling highest-value segments first gives RevPAR of <b>€213</b> at 100% occupancy; pricing to the elastic optimum (ADR <b>€252</b>) lifts RevPAR toward <b>€239</b>."},
+  detail:{built:"Allocates scarce room capacity to the highest-value segments (displacement), prices with demand elasticity to find the revenue-maximising rate, and tracks the core revenue-management KPIs (RevPAR, ADR, occupancy, yield).",
+   tech:["Segment greedy capacity allocation (displacement)","Price elasticity of demand","Revenue-maximising rate search","RevPAR, ADR, occupancy and yield KPIs","Opportunity cost of the marginal room"],
+   skills:["Revenue optimisation","Pricing","RevPAR management"]}
+ },
+ {
+  id:30, cat:["ETF Analytics"], eyebrow:"ETF · Portfolio & risk",
+  title:"ETF Portfolio: Allocation, Performance & Risk",
+  q:"How is a client's ETF portfolio really doing against its benchmark?",
+  file:"30_ETF_Portfolio_Allocation_Risk.xlsx",
+  tags:["Allocation & drift","Benchmarking","Sharpe / TE / IR"],
+  chart:{type:"hbars", title:"Risk & return vs benchmark (%)", labels:["Portfolio ret","Benchmark ret","Volatility","Tracking error"], vals:[13.4,12.1,9.2,1.1], suffix:"%", dec:1},
+  result:{badge:"pos", tag:"Outperforming", html:"A <b>€2M</b> eight-ETF portfolio returns <b>13.4%</b> vs 12.1% for the blended benchmark: Sharpe <b>1.24</b>, tracking error 1.1%, information ratio <b>1.19</b>, max drawdown -3.5%."},
+  detail:{built:"A model multi-asset ETF portfolio run the way an adviser runs client money: target vs actual allocation with drift and rebalancing trades, performance against a blended strategic benchmark, and a full risk pack.",
+   tech:["Target vs actual allocation, drift and rebalancing trades","Blended benchmark (target weights x index returns)","Annualised return, volatility, Sharpe","Beta and CAPM alpha vs benchmark","Tracking error, information ratio, max drawdown","Weighted expense ratio (TER)"],
+   skills:["Portfolio analysis","Benchmarking","Client reporting"]}
+ },
+ {
+  id:31, cat:["ETF Analytics"], eyebrow:"ETF · Product due diligence",
+  title:"ETF Tracking & Product Due Diligence",
+  q:"Which ETF actually tracks its index best, net of costs and structure?",
+  file:"31_ETF_Tracking_Product_Due_Diligence.xlsx",
+  tags:["Tracking difference","Replication","Selection scorecard"],
+  chart:{type:"hbars", title:"Selection composite score", labels:["Alpha World","Meridian","Vertex","Helios Idx","Nord","Orion"], vals:[0.85,0.76,0.66,0.62,0.43,0.08], dec:2},
+  result:{badge:"pos", tag:"Selected", html:"Across six funds on one index, the scorecard (cost, tracking, liquidity, size) picks <b>Alpha World Core</b>: tracking within <b>-0.14%</b> of the index at a 0.12% TER."},
+  detail:{built:"An ETF selection exercise across competing funds on the same index: tracking difference and tracking error, total cost, replication method and index structure, premium/discount to NAV and liquidity, ranked by a weighted scorecard.",
+   tech:["Tracking difference vs the index and tracking error","TER and total cost of ownership","Physical vs synthetic replication and index structure","Premium / discount to NAV","Liquidity: spread and AUM","Min-max normalised weighted selection scorecard"],
+   skills:["ETF product mechanics","Fund selection","Due diligence"]}
+ }
+];
+const FILTERS=["All","FP&A","Valuation","Portfolio","Strategy","Analytics","Enterprise & LRP","Liquidity Control","Revenue Management","ETF Analytics"];
+
+/* ============ SVG CHART HELPERS ============ */
+const NS="http://www.w3.org/2000/svg";
+function el(tag,attrs){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+
+function niceScale(max){const p=Math.pow(10,Math.floor(Math.log10(max)));const n=max/p;let s;if(n<=1)s=1;else if(n<=2)s=2;else if(n<=5)s=5;else s=10;return s*p;}
+
+function lineChart(c){
+  const W=520,H=170,pL=6,pR=8,pT=12,pB=20;
+  const svg=el("svg",{class:"chart",viewBox:`0 0 ${W} ${H}`,preserveAspectRatio:"none",role:"img"});
+  const series=c.type==="covenant"?[c.a]:[c.a,c.b];
+  const all=series.flat().concat(c.cov?[c.cov*0.9]:[]);
+  const max=niceScale(Math.max(...all)), min=0;
+  const n=c.a.length;
+  const X=i=>pL+ i*(W-pL-pR)/(n-1);
+  const Y=v=>pT+(1-(v-min)/(max-min))*(H-pT-pB);
+  // gridlines
+  for(let g=0;g<=2;g++){const y=pT+g*(H-pT-pB)/2;svg.appendChild(el("line",{class:"grid-l",x1:pL,y1:y,x2:W-pR,y2:y}));}
+  // covenant dashed line
+  if(c.cov){const y=Y(c.cov);svg.appendChild(el("line",{x1:pL,y1:y,x2:W-pR,y2:y,stroke:cssv("--neg"),"stroke-width":1.4,"stroke-dasharray":"5 4",opacity:.85}));}
+  const colA=c.type==="covenant"?cssv("--accent"):cssv("--faint");
+  const colB=cssv("--accent");
+  function path(data,col,wdt,fill){
+    let d="";data.forEach((v,i)=>{d+=(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)+" ";});
+    if(fill){const area=d+`L ${X(n-1)} ${Y(min)} L ${X(0)} ${Y(min)} Z`;
+      const ar=el("path",{d:area,fill:col,opacity:.12});svg.appendChild(ar);}
+    const p=el("path",{d:d.trim(),fill:"none",stroke:col,"stroke-width":wdt,"stroke-linejoin":"round","stroke-linecap":"round"});
+    const len=Math.max(W,H)*2.4;p.setAttribute("stroke-dasharray",len);p.setAttribute("stroke-dashoffset",len);
+    svg.appendChild(p);requestAnimationFrame(()=>{p.style.transition="stroke-dashoffset 1s ease";p.setAttribute("stroke-dashoffset",0);});
+    return p;
+  }
+  if(c.type==="covenant"){path(c.a,colB,2.4,true);
+    const lv=c.a[n-1];svg.appendChild(el("circle",{cx:X(n-1),cy:Y(lv),r:3.4,fill:colB,stroke:cssv("--panel"),"stroke-width":1.5}));}
+  else{path(c.a,colA,1.8,false);path(c.b,colB,2.6,true);
+    const lv=c.b[n-1];svg.appendChild(el("circle",{cx:X(n-1),cy:Y(lv),r:3.4,fill:colB,stroke:cssv("--panel"),"stroke-width":1.5}));}
+  // x labels (quarterly)
+  [0,3,6,9,11].forEach(i=>{const t=el("text",{x:X(i),y:H-6,"text-anchor":i===0?"start":(i===11?"end":"middle")});t.textContent=MONTHS[i];svg.appendChild(t);});
+  return svg;
+}
+
+function marginChart(c){
+  const W=520,H=170,pL=6,pR=8,pT=12,pB=20;
+  const svg=el("svg",{class:"chart",viewBox:`0 0 ${W} ${H}`,preserveAspectRatio:"none",role:"img"});
+  const series=[["--muted",c.gross,1.8],["--accent",c.ebitda,2.6],["--faint",c.net,1.6]];
+  const max=0.45,min=0,n=4;
+  const X=i=>pL+i*(W-pL-pR)/(n-1);
+  const Y=v=>pT+(1-(v-min)/(max-min))*(H-pT-pB);
+  for(let g=0;g<=3;g++){const y=pT+g*(H-pT-pB)/3;svg.appendChild(el("line",{class:"grid-l",x1:pL,y1:y,x2:W-pR,y2:y}));
+    const t=el("text",{x:W-pR,y:y-3,"text-anchor":"end"});t.textContent=Math.round((max-max*g/3)*100)+"%";svg.appendChild(t);}
+  series.forEach(([col,data,wd],idx)=>{
+    let d="";data.forEach((v,i)=>{d+=(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)+" ";});
+    const p=el("path",{d:d.trim(),fill:"none",stroke:cssv(col),"stroke-width":wd,"stroke-linejoin":"round","stroke-linecap":"round"});
+    const len=1600;p.setAttribute("stroke-dasharray",len);p.setAttribute("stroke-dashoffset",len);
+    svg.appendChild(p);requestAnimationFrame(()=>{p.style.transition=`stroke-dashoffset .9s ease ${idx*.12}s`;p.setAttribute("stroke-dashoffset",0);});
+    data.forEach((v,i)=>svg.appendChild(el("circle",{cx:X(i),cy:Y(v),r:2.4,fill:cssv(col)})));
+  });
+  c.labels.forEach((L,i)=>{const t=el("text",{x:X(i),y:H-6,"text-anchor":i===0?"start":(i===3?"end":"middle")});t.textContent=L;svg.appendChild(t);});
+  return svg;
+}
+
+function barChart(c,horizontal){
+  const n=c.vals.length;
+  const W=520, rowH=horizontal?26:0, H=horizontal?(n*rowH+14):170;
+  const svg=el("svg",{class:"chart",viewBox:`0 0 ${W} ${H}`,role:"img"});
+  const max=Math.max(...c.vals)*1.14;
+  if(horizontal){
+    const labW=118, barX=labW+6, barW=W-barX-42;
+    c.labels.forEach((L,i)=>{
+      const y=i*rowH+6;
+      const t=el("text",{x:labW,y:y+rowH/2,"text-anchor":"end","dominant-baseline":"middle"});t.textContent=L;t.style.fontSize="10px";t.style.fill=cssv("--muted");svg.appendChild(t);
+      const w=barW*c.vals[i]/max;
+      svg.appendChild(el("rect",{x:barX,y:y+2,width:0,height:rowH-10,rx:5,fill:cssv("--accent"),opacity:i===0?1:.55+(.45*(c.vals[i]/max)),style:"transition:width .8s cubic-bezier(.2,.7,.3,1) "+(i*.06)+"s"}));
+      const bar=svg.lastChild;requestAnimationFrame(()=>bar.setAttribute("width",w.toFixed(1)));
+      const val=el("text",{x:barX+w+6,y:y+rowH/2,"dominant-baseline":"middle"});val.textContent=(c.prefix||"")+((c.dec!=null&&c.dec>0)?c.vals[i].toFixed(c.dec):Math.round(c.vals[i]).toLocaleString())+(c.suffix||"");val.style.fontSize="10px";val.style.fill=cssv("--ink");svg.appendChild(val);
+    });
+  }else{
+    const pB=22,pT=10, gw=(W-16)/n;
+    c.vals.forEach((v,i)=>{
+      const bh=(H-pT-pB)*v/max, x=8+i*gw+gw*0.18, bw=gw*0.64, y=H-pB-bh;
+      const isSel=c.labels[i]==="Base";
+      svg.appendChild(el("rect",{x:x,y:H-pB,width:bw,height:0,rx:6,fill:cssv("--accent"),opacity:isSel?1:.5,style:"transition:height .8s cubic-bezier(.2,.7,.3,1) "+(i*.08)+"s,y .8s cubic-bezier(.2,.7,.3,1) "+(i*.08)+"s"}));
+      const bar=svg.lastChild;requestAnimationFrame(()=>{bar.setAttribute("height",bh.toFixed(1));bar.setAttribute("y",y.toFixed(1));});
+      const val=el("text",{x:x+bw/2,y:y-5,"text-anchor":"middle"});val.textContent="€"+v.toFixed(1)+"M";val.style.fontSize="10px";val.style.fill=cssv("--ink");svg.appendChild(val);
+      const lab=el("text",{x:x+bw/2,y:H-7,"text-anchor":"middle"});lab.textContent=c.labels[i];svg.appendChild(lab);
+    });
+  }
+  return svg;
+}
+
+function groupedChart(c){
+  const W=520,H=170,pB=22,pT=14,n=c.labels.length,ns=c.series.length;
+  const svg=el("svg",{class:"chart",viewBox:`0 0 ${W} ${H}`,role:"img"});
+  const max=Math.max(...c.series.flatMap(s=>s.vals))*1.16;
+  const gw=(W-16)/n, bw=gw*0.62/ns;
+  for(let g=0;g<=2;g++){const y=pT+g*(H-pT-pB)/2;svg.appendChild(el("line",{class:"grid-l",x1:6,y1:y,x2:W-6,y2:y}));}
+  c.labels.forEach((L,i)=>{
+    const base=8+i*gw+gw*0.19;
+    c.series.forEach((s,j)=>{
+      const v=s.vals[i], bh=(H-pT-pB)*v/max, x=base+j*bw, y=H-pB-bh;
+      svg.appendChild(el("rect",{x:x,y:H-pB,width:bw*0.86,height:0,rx:3,fill:cssv(s.color),style:"transition:height .8s cubic-bezier(.2,.7,.3,1) "+((i*ns+j)*.05)+"s,y .8s cubic-bezier(.2,.7,.3,1) "+((i*ns+j)*.05)+"s"}));
+      const bar=svg.lastChild;requestAnimationFrame(()=>{bar.setAttribute("height",bh.toFixed(1));bar.setAttribute("y",y.toFixed(1));});
+    });
+    const lab=el("text",{x:base+gw*0.31,y:H-7,"text-anchor":"middle"});lab.textContent=L;svg.appendChild(lab);
+  });
+  return svg;
+}
+function renderChart(c){
+  if(c.type==="dualline"||c.type==="covenant")return lineChart(c);
+  if(c.type==="margins")return marginChart(c);
+  if(c.type==="hbars")return barChart(c,true);
+  if(c.type==="scenariobars")return barChart(c,false);
+  if(c.type==="grouped")return groupedChart(c);
+}
+
+/* ============ BUILD CARDS ============ */
+const grid=document.getElementById("grid");
+function legendFor(c){
+  if(c.type==="dualline")return `<span><i style="background:var(--faint)"></i>${c.la}</span><span><i style="background:var(--accent)"></i>${c.lb}</span>`;
+  if(c.type==="covenant")return `<span><i style="background:var(--accent)"></i>${c.la}</span><span><i style="background:var(--neg)"></i>${c.lb}</span>`;
+  if(c.type==="margins")return `<span><i style="background:var(--muted)"></i>Gross</span><span><i style="background:var(--accent)"></i>EBITDA</span><span><i style="background:var(--faint)"></i>Net</span>`;
+  if(c.type==="grouped")return c.series.map(s=>`<span><i style="background:var(${s.color})"></i>${s.name}</span>`).join("");
+  return "";
+}
+function tile(p){
+  const b=document.createElement("button"); b.className="tile"; b.type="button"; b.dataset.id=p.id;
+  const num=String(p.id).padStart(2,"0");
+  b.innerHTML=`<div class="tile-top"><span class="idx">${num}</span><span class="tile-eyebrow">${p.eyebrow}</span></div>`+
+    `<h3>${p.title}</h3><p class="tq">${p.q}</p>`+
+    `<div class="tile-foot"><span class="badge ${p.result.badge}">${p.result.tag}</span><span class="open-x">View ›</span></div>`;
+  b.addEventListener("click",()=>openModal(p));
+  return b;
+}
+// scenario bar chart that highlights a chosen index
+function barChartSel(c,selIdx){
+  const n=c.vals.length,W=520,H=170,pB=22,pT=10,gw=(W-16)/n,max=Math.max(...c.vals)*1.14;
+  const svg=el("svg",{class:"chart",viewBox:`0 0 ${W} ${H}`,role:"img"});
+  c.vals.forEach((v,i)=>{
+    const bh=(H-pT-pB)*v/max,x=8+i*gw+gw*0.18,bw=gw*0.64,y=H-pB-bh,sel=i===selIdx;
+    svg.appendChild(el("rect",{x:x,y:y,width:bw,height:bh,rx:6,fill:cssv("--accent"),opacity:sel?1:.42}));
+    const val=el("text",{x:x+bw/2,y:y-5,"text-anchor":"middle"});val.textContent="€"+v.toFixed(1)+"M";val.style.fontSize="10px";val.style.fill=cssv("--ink");val.style.fontWeight=sel?"700":"400";svg.appendChild(val);
+    const lab=el("text",{x:x+bw/2,y:H-7,"text-anchor":"middle"});lab.textContent=c.labels[i];svg.appendChild(lab);
+  });
+  return svg;
+}
+
+/* ============ MODAL DETAIL ============ */
+const modal=document.getElementById("modal");
+const modalHead=modal.querySelector(".modal-head");
+const modalBody=modal.querySelector(".modal-body");
+function openModal(p){
+  const num=String(p.id).padStart(2,"0");
+  modalHead.innerHTML=`<span class="idx">${num}</span><div><div class="card-eyebrow">${p.eyebrow}</div><h3 class="modal-title">${p.title}</h3></div><button class="modal-close" aria-label="Close">✕</button>`;
+  modalBody.innerHTML=`<p class="modal-q">${p.q}</p>`+
+    `<div class="tags">${p.tags.map(t=>`<span class="t">${t}</span>`).join("")}</div>`+
+    `<div class="chartbox"><div class="cx-head"><span class="cx-title">${p.chart.title}</span><span class="legend">${legendFor(p.chart)}</span></div><div class="chart-mount"></div></div>`+
+    (p.scenario?`<div class="scenario" role="group" aria-label="Scenario switch"><button class="sbtn" data-s="0">Bear</button><button class="sbtn" data-s="1" aria-pressed="true">Base</button><button class="sbtn" data-s="2">Bull</button><span class="sval">€53.0M</span></div>`:"")+
+    `<div class="result"><span class="badge ${p.result.badge}">${p.result.tag}</span><p>${p.result.html}</p></div>`+
+    `<div class="detail-inner"><div class="full"><h4>What I built</h4><p>${p.detail.built}</p></div><div><h4>Techniques</h4><ul>${p.detail.tech.map(t=>`<li>${t}</li>`).join("")}</ul></div><div><h4>Skills shown</h4><div class="skills">${p.detail.skills.map(x=>`<span class="t">${x}</span>`).join("")}</div></div></div>`+
+    `<div class="card-actions"><a class="btn btn-primary" href="models/${p.file}" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg> Open in Excel</a><span class="spacer"></span><span class="filelabel">.xlsx</span></div>`;
+  const _ch=renderChart(p.chart); if(_ch) modalBody.querySelector(".chart-mount").appendChild(_ch);
+  // Hosted build: files live on Google Drive (the artifact frame blocks downloads and new tabs,
+  // so the file link is copied to the clipboard and the spreadsheet itself is embedded as a preview)
+  if(typeof FILES!=="undefined" && FILES[p.file]){
+    const link=FILES[p.file];
+    const dl=modalBody.querySelector("a.btn-primary");
+    dl.removeAttribute("download");
+    dl.innerHTML=dl.innerHTML.replace("Open in Excel","Copy Excel link");
+    dl.addEventListener("click",e=>{
+      e.preventDefault();
+      navigator.clipboard.writeText(link).then(()=>{
+        dl.querySelector(".cp-note")?.remove();
+        const n=document.createElement("span"); n.className="cp-note"; n.textContent=" copied! paste in a new tab";
+        dl.appendChild(n); setTimeout(()=>n.remove(),2600);
+      });
+    });
+    const hint=document.createElement("span"); hint.className="filelabel"; hint.style.marginLeft="4px";
+    hint.textContent="link opens the file in Google Drive";
+    dl.after(hint);
+  }
+  if(p.scenario){
+    const vals={0:46.1,1:53.0,2:57.7}; const sval=modalBody.querySelector(".sval");
+    modalBody.querySelectorAll(".sbtn").forEach(bt=>bt.addEventListener("click",()=>{
+      modalBody.querySelectorAll(".sbtn").forEach(x=>x.removeAttribute("aria-pressed")); bt.setAttribute("aria-pressed","true");
+      const sIdx=+bt.dataset.s; sval.textContent="€"+vals[sIdx].toFixed(1)+"M";
+      const mount=modalBody.querySelector(".chart-mount"); mount.innerHTML="";
+      const cc=Object.assign({},p.chart); cc.labels=["Bear","Base","Bull"];
+      const _bc=barChartSel(cc,sIdx); if(_bc) mount.appendChild(_bc);
+    }));
+  }
+  modalHead.querySelector(".modal-close").addEventListener("click",closeModal);
+  modal.classList.add("open"); document.body.style.overflow="hidden"; modal.scrollTop=0;
+}
+function closeModal(){ modal.classList.remove("open"); document.body.style.overflow=""; }
+modal.addEventListener("click",e=>{ if(e.target.classList.contains("modal-scrim")) closeModal(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && modal.classList.contains("open")) closeModal(); });
+
+/* ============ RENDER TILES BY TOPIC ============ */
+const TOPICS=[
+ {key:"FP&A", label:"FP&A", desc:"Planning, forecasting and performance for the business."},
+ {key:"Valuation", label:"Valuation", desc:"What a company is worth, intrinsically and against the market."},
+ {key:"Portfolio", label:"Portfolio", desc:"Building and measuring investment portfolios."},
+ {key:"Strategy", label:"Strategy", desc:"Sizing the opportunity and making the business case."},
+ {key:"Analytics", label:"Analytics", desc:"Turning raw data into decisions."},
+ {key:"Enterprise & LRP", label:"Enterprise Valuation & Long-Range Planning", desc:"Corporate three-statement and multi-year cash flow frameworks to evaluate strategy, structure capital, and build long-term value."},
+ {key:"Liquidity Control", label:"Tactility & Liquidity Control", desc:"Hyper-tactical operational cash control, owning a tight rolling 13-week cash flow forecast."},
+ {key:"Revenue Management", label:"Revenue Management & Demand Forecasting", desc:"Forecasting demand and optimising fixed capacity to maximise revenue: booking curves and unconstraining, fare-class protection and overbooking, and price / RevPAR optimisation."},
+ {key:"ETF Analytics", label:"ETF & Fund Analytics", desc:"The analysis behind advising on fund and ETF portfolios: allocation and rebalancing, benchmarking performance and risk, and ETF product mechanics and selection."}
+];
+const sectionsEl=document.getElementById("sections");
+TOPICS.forEach(t=>{
+  const items=PROJECTS.filter(p=>(p.cat[0]||"")===t.key);
+  if(!items.length) return;
+  const sec=document.createElement("section"); sec.className="topic"; sec.dataset.topic=t.key;
+  const head=document.createElement("div"); head.className="topic-head";
+  head.innerHTML='<div><h2>'+(t.label||t.key)+'</h2><p>'+t.desc+'</p></div><span class="topic-count">'+items.length+' projects</span>';
+  sec.appendChild(head);
+  const g=document.createElement("div"); g.className="tgrid";
+  items.forEach(p=>g.appendChild(tile(p)));
+  sec.appendChild(g); sectionsEl.appendChild(sec);
+});
+
+/* ============ DROPDOWN (jump to project) ============ */
+const sel=document.getElementById("projectSelect");
+TOPICS.forEach(t=>{
+  const items=PROJECTS.filter(p=>p.cat[0]===t.key); if(!items.length) return;
+  const og=document.createElement("optgroup"); og.label=(t.label||t.key);
+  items.forEach(p=>{ const o=document.createElement("option"); o.value=p.id; o.textContent=String(p.id).padStart(2,"0")+" · "+p.title; og.appendChild(o); });
+  sel.appendChild(og);
+});
+sel.addEventListener("change",()=>{ const id=+sel.value; const p=PROJECTS.find(x=>x.id===id); if(p) openModal(p); sel.value=""; });
+
+/* ============ FILTERS (by topic section) ============ */
+const fbar=document.getElementById("filters"), countnote=document.getElementById("countnote");
+let active="All";
+function applyFilter(){
+  let shown=0;
+  document.querySelectorAll(".topic").forEach(sec=>{
+    const on = active==="All" || sec.dataset.topic===active;
+    sec.style.display = on ? "" : "none";
+    if(on) shown += sec.querySelectorAll(".tile").length;
+  });
+  countnote.textContent=shown+" / "+PROJECTS.length+" projects";
+}
+FILTERS.forEach(f=>{
+  const b=document.createElement("button");b.className="chip";b.textContent=f;
+  b.setAttribute("aria-pressed",f==="All");
+  b.addEventListener("click",()=>{active=f;fbar.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");applyFilter();});
+  fbar.appendChild(b);
+});
+applyFilter();
+
+/* ============ DRIVE FOLDER LINK (copy fallback for sandboxed viewers) ============ */
+const dfl=document.getElementById("driveFolder");
+if(dfl){ dfl.addEventListener("click",()=>{ navigator.clipboard?.writeText(dfl.href).catch(()=>{}); const o=dfl.textContent; dfl.textContent="Drive link copied, paste in a new tab"; setTimeout(()=>dfl.textContent=o,2600); }); }
+
+/* ============ THEME TOGGLE ============ */
+const tbtn=document.getElementById("theme");
+tbtn.addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme");
+  const sysDark=window.matchMedia("(prefers-color-scheme:dark)").matches;
+  const now= cur? cur : (sysDark?"dark":"light");
+  document.documentElement.setAttribute("data-theme", now==="dark"?"light":"dark");
+});
+
+/* ============ COUNT-UP STATS ============ */
+function animateCounts(){
+  document.querySelectorAll(".stat .k").forEach(k=>{
+    const target=+k.dataset.count, dec=+(k.dataset.dec||0), pre=k.dataset.prefix||"", suf=k.dataset.suffix||"";
+    const dur=1100, t0=performance.now();
+    function step(t){let p=Math.min(1,(t-t0)/dur);p=1-Math.pow(1-p,3);
+      const v=(target*p).toFixed(dec);k.textContent=pre+(dec?v:Math.round(v)).toLocaleString?pre+(dec? v : Math.round(target*p).toLocaleString())+suf:pre+v+suf;
+      k.textContent=pre+(dec?v:Math.round(target*p).toLocaleString())+suf;
+      if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  });
+}
+if(matchMedia("(prefers-reduced-motion:reduce)").matches){
+  document.querySelectorAll(".stat .k").forEach(k=>{const dec=+(k.dataset.dec||0);k.textContent=(k.dataset.prefix||"")+(dec?(+k.dataset.count).toFixed(dec):(+k.dataset.count).toLocaleString())+(k.dataset.suffix||"");});
+}else{animateCounts();}
+</script>
+</body>
+</html>
