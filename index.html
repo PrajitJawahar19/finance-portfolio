@@ -296,7 +296,7 @@ footer .disc{max-width:70ch; margin:12px auto 0; line-height:1.6}
   <div class="wrap">
     <span class="eyebrow">Valuation · Forecasting · Revenue Management</span>
     <h1>Turning financial data into <em>decisions</em>, not just reports.</h1>
-    <p class="lede">Thirty-one hands-on projects across nine skill areas, from FP&amp;A and valuation to revenue management and ETF analytics.
+    <p class="lede">Thirty-two hands-on projects across nine skill areas, from FP&amp;A and valuation to revenue management and ETF analytics.
       Each is a working Excel file with live formulas, and they all centre on one fictional company, <b>Helios Consumer GmbH</b>,
       so the numbers connect across the whole set.</p>
     <div class="hero-meta">
@@ -306,7 +306,7 @@ footer .disc{max-width:70ch; margin:12px auto 0; line-height:1.6}
     </div>
 
     <div class="stats" id="stats">
-      <div class="stat"><div class="k" data-count="31" data-suffix="">0</div><div class="l">Projects</div></div>
+      <div class="stat"><div class="k" data-count="32" data-suffix="">0</div><div class="l">Projects</div></div>
       <div class="stat"><div class="k" data-count="49.5" data-prefix="€" data-suffix="M" data-dec="1">0</div><div class="l">Revenue modelled</div></div>
       <div class="stat"><div class="k" data-count="12" data-suffix="mo">0</div><div class="l">Rolling forecast</div></div>
       <div class="stat"><div class="k" data-count="9" data-suffix="">0</div><div class="l">Skill areas</div></div>
@@ -765,6 +765,21 @@ const PROJECTS=[
   detail:{built:"An ETF selection exercise across competing funds on the same index: tracking difference and tracking error, total cost, replication method and index structure, premium/discount to NAV and liquidity, ranked by a weighted scorecard.",
    tech:["Tracking difference vs the index and tracking error","TER and total cost of ownership","Physical vs synthetic replication and index structure","Premium / discount to NAV","Liquidity: spread and AUM","Min-max normalised weighted selection scorecard"],
    skills:["ETF product mechanics","Fund selection","Due diligence"]}
+ },
+ {
+  id:32, cat:["Valuation"], eyebrow:"Valuation · DCF on a listed company",
+  title:"DCF Valuation: Deutsche Börse (DB1)",
+  q:"What is Deutsche Börse actually worth, built off its real FY2025 results?",
+  file:"32_DCF_Deutsche_Boerse_DB1.xlsx",
+  tags:["FCFF DCF","WACC & terminal value","Sensitivity & implied growth"],
+  chart:{type:"hbars", title:"Value per share vs terminal growth (WACC 6%)",
+   labels:["g 1.0%","g 1.5%","g 2.0%","g 2.5%","g 3.0%"],
+   vals:[271.52,300.27,336.21,382.42,444.03], prefix:"€", dec:2},
+  result:{badge:"pos", tag:"Undervalued",
+   html:"DCF on Deutsche Börse (DB1) off real FY2025 results: <b>€332 per share</b> vs a €293.70 market price (~13% upside). The market price implies <b>~1.5%</b> perpetual growth, below inflation for a business guided to grow 9%."},
+  detail:{built:"A full FCFF DCF on Deutsche Börse AG built from the FY2025 preliminary results (11 Feb 2026) and market data of 6 Oct 2026: explicit 2026 to 2030 forecast anchored on company guidance, CAPM-based WACC, Gordon terminal value, equity bridge with net debt and minorities, a terminal-growth x WACC sensitivity grid, and a reverse-DCF solving for the growth rate implied by the market price.",
+   tech:["FCFF from EBITDA with cash tax on EBIT and capex","Treasury result (Clearstream banking book) treated as operating: the working-capital question reframed","CAPM cost of equity, market-value WACC weights","Gordon growth terminal value and discounting","Equity bridge: net debt and capitalised minorities","Two-way sensitivity grid and market-implied growth solve"],
+   skills:["Company valuation","DCF modelling","Capital markets judgement"]}
  }
 ];
 const FILTERS=["All","FP&A","Valuation","Portfolio","Strategy","Analytics","Enterprise & LRP","Liquidity Control","Revenue Management","ETF Analytics"];
