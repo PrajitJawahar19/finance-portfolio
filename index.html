@@ -279,58 +279,467 @@ footer .disc{max-width:70ch; margin:12px auto 0; line-height:1.6}
   *{transition:none !important; animation:none !important}
 }
 :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:6px}
+
+/* ============================================================
+   RESEARCH NOTE  ×  BENTO   (editorial layer)
+   ============================================================ */
+
+/* calmer ground: ledger paper, not neon */
+body::after{opacity:.30}
+
+/* ---- masthead ---- */
+.masthead{
+  position:sticky; top:0; z-index:40; backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--ground) 86%, transparent);
+  border-top:3px solid var(--ink); border-bottom:1px solid var(--line);
+}
+.mast-inner{display:flex; align-items:center; gap:18px; height:58px}
+.mast-name{
+  font:700 var(--fs-small)/1 var(--mono); letter-spacing:.26em; text-transform:uppercase;
+  color:var(--ink); white-space:nowrap;
+}
+.mast-rule{flex:1; height:1px; background:var(--line); min-width:12px}
+.mast-meta{
+  font:600 var(--fs-micro)/1 var(--mono); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--faint); white-space:nowrap;
+}
+@media (max-width:720px){ .mast-meta{display:none} }
+
+/* ---- hero, research-note ---- */
+.hero{padding:44px 0 8px}
+.dateline{
+  display:flex; align-items:center; gap:10px 22px; flex-wrap:wrap;
+  padding-bottom:12px; border-bottom:1px solid var(--ink);
+  font:700 var(--fs-micro)/1.4 var(--mono); letter-spacing:.18em; text-transform:uppercase; color:var(--faint);
+}
+.dateline b{color:var(--accent-ink); font-weight:700}
+.dateline .dl-sp{margin-left:auto}
+@media (max-width:720px){ .dateline .dl-sp{margin-left:0} }
+.hero h1{margin:26px 0 0; font-size:var(--fs-display)}
+.hero-rule{height:1px; background:var(--line); margin:26px 0 0}
+.hero-cols{display:grid; grid-template-columns:1.35fr 1fr; gap:28px; margin-top:22px; align-items:start}
+.hero-cols .lede{margin:0; max-width:none}
+.abstract{
+  border-left:2px solid var(--accent); padding:2px 0 2px 16px;
+  font-size:var(--fs-small); color:var(--muted); line-height:1.6;
+}
+.abstract h6{
+  font:700 var(--fs-micro)/1 var(--mono); letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink); margin:0 0 9px;
+}
+.abstract p{margin:0 0 8px}
+.abstract p:last-child{margin-bottom:0}
+@media (max-width:880px){ .hero-cols{grid-template-columns:1fr; gap:22px} }
+
+/* ---- bento: stats ---- */
+.bento{display:grid; gap:12px; margin:30px 0 0}
+.bento-stats{grid-template-columns:repeat(4,1fr); grid-auto-rows:minmax(94px,auto)}
+.bx{
+  background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:16px 18px;
+  display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.bx .bk{font:700 var(--fs-stat)/1 var(--mono); letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+.bx .bl{margin-top:6px; font-size:var(--fs-small); color:var(--muted)}
+.bx .bcap{
+  font:700 var(--fs-micro)/1 var(--mono); letter-spacing:.18em; text-transform:uppercase; color:var(--faint);
+}
+.bx-lead{
+  grid-column:span 2; grid-row:span 2;
+  background:linear-gradient(150deg, color-mix(in srgb,var(--accent) 12%, var(--panel)), var(--panel) 62%);
+  border-color:color-mix(in srgb,var(--accent) 34%, var(--line));
+}
+.bx-lead .bk{font-size:clamp(46px,7vw,82px); line-height:.92; color:var(--ink)}
+.bx-lead .bl{font-size:var(--fs-lead); color:var(--ink); font-weight:600; margin-top:10px}
+.bx-lead .bsub{font-size:var(--fs-small); color:var(--muted); margin-top:4px}
+.bx-spark{margin-top:14px; display:block; width:100%; height:46px; color:var(--accent)}
+@media (max-width:880px){
+  .bento-stats{grid-template-columns:repeat(2,1fr)}
+  .bx-lead{grid-column:span 2; grid-row:span 1}
+}
+
+/* ---- bento: skill areas ---- */
+.bento-areas{grid-template-columns:repeat(12,1fr); margin-top:14px}
+.ax{
+  grid-column:span 4; text-align:left; font-family:inherit; color:inherit; cursor:pointer;
+  background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:16px 17px 14px;
+  display:flex; flex-direction:column; gap:8px; min-height:132px; box-shadow:var(--shadow);
+  transition:transform .18s cubic-bezier(.2,.7,.3,1), box-shadow .18s, border-color .18s;
+}
+.ax:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--accent) 50%,var(--line))}
+.ax.wide{grid-column:span 6}
+.ax.full{grid-column:span 12}
+.ax.full .ax-body{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); gap:8px 28px; align-items:baseline}
+.ax.full h3{margin:0}
+.ax-top{display:flex; align-items:baseline; justify-content:space-between; gap:12px}
+.ax-n{font:700 var(--fs-stat)/1 var(--mono); color:var(--accent-ink); font-variant-numeric:tabular-nums}
+.ax-n small{font:700 var(--fs-micro)/1 var(--mono); letter-spacing:.14em; color:var(--faint); margin-left:8px; text-transform:uppercase}
+.ax h3{font-family:var(--serif); font-weight:600; font-size:var(--fs-h3); margin:0; line-height:1.18; letter-spacing:-.01em}
+.ax p{margin:0; font-size:var(--fs-small); color:var(--muted); line-height:1.5}
+.ax[aria-pressed="true"]{border-color:var(--accent); background:color-mix(in srgb,var(--accent) 7%, var(--panel))}
+@media (max-width:880px){
+  .bento-areas{grid-template-columns:repeat(2,1fr)}
+  .ax,.ax.wide,.ax.full{grid-column:span 1}
+  .ax.full .ax-body{grid-template-columns:1fr; gap:6px}
+}
+@media (max-width:520px){ .bento-areas{grid-template-columns:1fr} }
+
+/* ---- index table (the research-note contents page) ---- */
+.indexwrap{border-top:2px solid var(--ink); margin-top:10px}
+.ixhead{
+  display:grid; grid-template-columns:52px 1fr 190px 128px;
+  gap:14px; padding:10px 6px; border-bottom:1px solid var(--line);
+  font:700 var(--fs-micro)/1 var(--mono); letter-spacing:.16em; text-transform:uppercase; color:var(--faint);
+}
+.ixrow{
+  display:grid; grid-template-columns:52px 1fr 190px 128px; gap:14px; width:100%;
+  align-items:center; text-align:left; font-family:inherit; color:inherit;
+  background:transparent; border:0; border-bottom:1px solid var(--line-2);
+  padding:13px 6px; cursor:pointer; position:relative; transition:background .15s, padding-left .15s;
+}
+.ixrow::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--accent);
+  transform:scaleY(0); transform-origin:center; transition:transform .18s;
+}
+.ixrow:hover{background:color-mix(in srgb,var(--accent) 6%, transparent); padding-left:14px}
+.ixrow:hover::before{transform:scaleY(1)}
+.ixrow.hide{display:none}
+.ixgroup{
+  display:flex; align-items:baseline; gap:12px; padding:22px 6px 8px;
+  border-bottom:1px solid var(--line);
+}
+.ixgroup .g-t{font:700 var(--fs-micro)/1 var(--mono); letter-spacing:.18em; text-transform:uppercase; color:var(--ink)}
+.ixgroup .g-r{flex:1; height:1px; background:var(--line-2)}
+.ixgroup .g-n{font:700 var(--fs-micro)/1 var(--mono); color:var(--faint); letter-spacing:.08em}
+.ixgroup.hide{display:none}
+.indexwrap > div:first-child.ixgroup{padding-top:10px}
+.ix-n{font:700 var(--fs-small)/1 var(--mono); color:var(--faint); font-variant-numeric:tabular-nums}
+.ix-t{min-width:0}
+.ix-t strong{display:block; font-family:var(--serif); font-weight:600; font-size:17px; letter-spacing:-.01em; line-height:1.25}
+.ix-t span{display:block; font-size:var(--fs-small); color:var(--muted); margin-top:3px;
+  overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical}
+.ix-a{font:600 var(--fs-micro)/1.3 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+.ix-s{display:flex; align-items:center; justify-content:flex-end; gap:10px}
+.ix-s .badge{font:700 var(--fs-micro)/1 var(--mono); letter-spacing:.06em; padding:5px 8px; border-radius:6px; text-transform:uppercase; white-space:nowrap}
+.ix-s .arr{color:var(--accent-ink); font-weight:700}
+@media (max-width:880px){
+  .ixhead{grid-template-columns:44px minmax(0,1fr) auto}
+  .ixhead .ixh-a{display:none}
+  .ixrow{grid-template-columns:44px minmax(0,1fr) auto; align-items:start}
+  .ix-a{display:none}
+  .ix-s{justify-content:flex-end; align-items:flex-start}
+  .ix-s .arr{display:none}
+}
+@media (max-width:640px){
+  /* a one-line clamp of the question is just a truncated fragment at this width */
+  .ix-t span{display:none}
+  .ix-t strong{font-size:16px}
+  .section-head{flex-direction:column; align-items:flex-start; gap:12px}
+  .tiles-controls{width:100%}
+  .select,.select select{width:100%; max-width:none; min-width:0}
+}
+
+/* ---- view switch ---- */
+.vswitch{display:inline-flex; border:1px solid var(--line); border-radius:11px; overflow:hidden; background:var(--panel)}
+.vswitch button{
+  font:600 var(--fs-small)/1 var(--sans); padding:10px 14px; border:0; background:transparent;
+  color:var(--muted); cursor:pointer; transition:.16s;
+}
+.vswitch button + button{border-left:1px solid var(--line)}
+.vswitch button[aria-pressed="true"]{background:var(--accent); color:var(--on-accent)}
+.cardsview[hidden],.indexview[hidden]{display:none}
+
+/* ---- chart entry animations ----
+   Geometry is written to the DOM immediately and the entry motion is pure CSS,
+   so a chart is never dependent on a frame callback to become visible. If
+   animations are disabled or suspended, the resting state is already correct —
+   which is also what makes the charts render in print and screenshots. */
+.chart .anim-x{transform-box:fill-box; transform-origin:left center;
+  animation:cgrowX .8s cubic-bezier(.2,.7,.3,1) var(--d,0s) both}
+.chart .anim-y{transform-box:fill-box; transform-origin:center bottom;
+  animation:cgrowY .8s cubic-bezier(.2,.7,.3,1) var(--d,0s) both}
+.chart .anim-line{animation:cdraw 1s ease var(--d,0s) both}
+@keyframes cgrowX{from{transform:scaleX(0)} to{transform:scaleX(1)}}
+@keyframes cgrowY{from{transform:scaleY(0)} to{transform:scaleY(1)}}
+@keyframes cdraw{from{stroke-dashoffset:var(--len,1600)} to{stroke-dashoffset:0}}
+
+
+/* ---- workbook preview inside the modal ---- */
+.wbprev{margin-top:16px; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--panel-2)}
+.wbprev-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  padding:11px 14px; border-bottom:1px solid var(--line); background:var(--inset)}
+.wbprev-head .tab{font:700 var(--fs-micro)/1 var(--mono); letter-spacing:.12em; text-transform:uppercase;
+  color:var(--accent-ink); border:1px solid var(--line); border-radius:7px; padding:6px 9px}
+.wbprev-head .meta{margin-left:auto; font:600 var(--fs-micro)/1 var(--mono); color:var(--faint); letter-spacing:.04em}
+.wbprev-head .ok{color:var(--pos)}
+.wbscroll{overflow-x:auto; max-height:330px; overflow-y:auto}
+table.wbt{border-collapse:collapse; width:100%; font:500 13px/1.45 var(--mono); font-variant-numeric:tabular-nums}
+table.wbt td{padding:5px 11px; border-bottom:1px solid var(--line-2); white-space:nowrap; color:var(--ink)}
+table.wbt td:first-child{color:var(--muted); white-space:normal; min-width:150px; max-width:260px}
+table.wbt td.num{text-align:right}
+table.wbt td.neg{color:var(--neg)}
+table.wbt tr.hdr td{color:var(--faint); font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:var(--fs-micro)}
+table.wbt tr:hover td{background:color-mix(in srgb,var(--accent) 7%, transparent)}
+.wbform{padding:11px 14px; border-top:1px solid var(--line); background:var(--inset)}
+.wbform code{display:block; font:500 var(--fs-micro)/1.6 var(--mono); color:var(--muted); white-space:pre-wrap; word-break:break-all}
+.wbform code b{color:var(--accent-ink); font-weight:700}
+.wbform code i{color:var(--ink); font-style:normal}
+
+/* ---- live DCF ---- */
+.live{margin-top:16px; border:1px solid color-mix(in srgb,var(--accent) 38%,var(--line));
+  border-radius:16px; overflow:hidden; background:var(--panel-2)}
+.live-head{display:flex; align-items:center; gap:10px; padding:12px 16px;
+  border-bottom:1px solid var(--line); background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
+.live-head h5{margin:0; font:700 var(--fs-micro)/1 var(--mono); letter-spacing:.16em;
+  text-transform:uppercase; color:var(--accent-ink)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--pos);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--pos) 25%,transparent)}
+.live-head .hint{margin-left:auto; font-size:var(--fs-micro); color:var(--faint)}
+.live-body{padding:16px}
+.live-ctl{display:grid; gap:14px}
+.lrow{display:grid; grid-template-columns:132px 1fr 84px; align-items:center; gap:12px}
+.lrow label{font:600 var(--fs-small)/1.2 var(--sans); color:var(--muted)}
+.lrow output{font:700 var(--fs-body)/1 var(--mono); color:var(--ink); text-align:right; font-variant-numeric:tabular-nums}
+.lrow input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:3px;
+  background:linear-gradient(90deg,var(--accent) var(--pct,50%), var(--line) var(--pct,50%)); cursor:pointer}
+.lrow input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:17px; height:17px; border-radius:50%;
+  background:var(--accent); border:2px solid var(--panel); box-shadow:0 1px 4px rgba(0,0,0,.35); cursor:grab}
+.lrow input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--accent);
+  border:2px solid var(--panel); cursor:grab}
+.live-out{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px}
+.lo{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:12px}
+.lo .k{font:700 clamp(19px,2.3vw,24px)/1 var(--mono); font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+.lo .l{margin-top:5px; font-size:var(--fs-micro); color:var(--muted)}
+.lo.up .k{color:var(--pos)} .lo.dn .k{color:var(--neg)}
+.live-bar{margin-top:14px}
+.lb{display:grid; grid-template-columns:96px 1fr 76px; align-items:center; gap:10px; margin:7px 0;
+  font:600 var(--fs-micro)/1 var(--mono); color:var(--muted)}
+.lb .track{display:block; height:12px; border-radius:4px;
+  background:color-mix(in srgb,var(--faint) 20%, transparent); overflow:hidden; position:relative}
+.lb .fill{display:block; height:100%; width:0; border-radius:4px; background:var(--accent);
+  transition:width .18s ease}
+.lb.mkt .fill{background:var(--faint)}
+.lb .v{text-align:right; color:var(--ink); font-weight:700}
+.live-note{margin-top:13px; font-size:var(--fs-small); color:var(--muted); line-height:1.55}
+.live-note b{color:var(--ink)}
+.live-reset{margin-top:12px; font:600 var(--fs-micro)/1 var(--sans); color:var(--accent-ink);
+  background:none; border:0; cursor:pointer; padding:0; text-decoration:underline}
+@media (max-width:560px){
+  .live-out{grid-template-columns:1fr}
+  .lb{grid-template-columns:70px 1fr 66px}
+  /* a ~100px slider is too cramped to drag: give the track the full width
+     and move its label onto its own line */
+  .lrow{grid-template-columns:1fr auto; grid-template-areas:"lab lab" "sl out"; gap:6px 12px}
+  .lrow label{grid-area:lab}
+  .lrow input[type=range]{grid-area:sl}
+  .lrow output{grid-area:out; text-align:right}
+}
+
+
+/* ============================================================
+   MOTION LAYER  —  craft, not decoration
+   every effect below is driven by real model data or by the
+   pointer; nothing here is an ambient gradient or a particle.
+   ============================================================ */
+
+/* ---- ticker: real outputs from the 32 workbooks ---- */
+.ticker{
+  position:relative; overflow:hidden; border-bottom:1px solid var(--line);
+  background:color-mix(in srgb, var(--panel) 70%, transparent);
+  height:34px; display:flex; align-items:center;
+}
+.ticker::before,.ticker::after{
+  content:""; position:absolute; top:0; bottom:0; width:70px; z-index:2; pointer-events:none;
+}
+.ticker::before{left:0;  background:linear-gradient(90deg,var(--ground),transparent)}
+.ticker::after {right:0; background:linear-gradient(270deg,var(--ground),transparent)}
+.tick-track{display:flex; gap:0; white-space:nowrap; will-change:transform; animation:tickscroll 90s linear infinite}
+.ticker:hover .tick-track{animation-play-state:paused}
+@keyframes tickscroll{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+.tk{
+  display:inline-flex; align-items:center; gap:9px; padding:0 20px;
+  font:600 var(--fs-micro)/1 var(--mono); letter-spacing:.06em; color:var(--muted);
+  border-right:1px solid var(--line-2);
+}
+.tk i{font-style:normal; color:var(--faint); letter-spacing:.14em}
+.tk b{color:var(--ink); font-weight:700}
+.tk .up{color:var(--pos)} .tk .dn{color:var(--neg)} .tk .fl{color:var(--warn)}
+
+/* ---- magnetic headline ---- */
+.hero h1 .mw{display:inline-block; white-space:nowrap}
+.hero h1 .mc{display:inline-block; will-change:transform;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1), color .5s}
+.hero h1.mag-live .mc{transition:transform .12s cubic-bezier(.2,.8,.2,1), color .3s}
+
+/* ---- hero crosshair (Bloomberg-style, confined to the hero) ---- */
+.hero{position:relative}
+.xhair{position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .35s; z-index:0}
+.hero:hover .xhair{opacity:1}
+.xhair i{position:absolute; background:var(--accent); opacity:.22}
+.xhair .xv{top:0; bottom:0; width:1px; transform:translateX(-.5px)}
+.xhair .xh{left:0; right:0; height:1px; transform:translateY(-.5px)}
+.xhair .xd{
+  width:5px; height:5px; border-radius:50%; background:var(--accent); opacity:.7;
+  transform:translate(-2.5px,-2.5px); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);
+}
+.hero > .wrap{position:relative; z-index:1}
+
+/* ---- pointer spotlight on tiles ---- */
+.bx,.ax,.tile{position:relative}
+.bx::after,.ax::after,.tile::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  opacity:0; transition:opacity .3s;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb,var(--accent) 16%,transparent), transparent 62%);
+}
+.bx:hover::after,.ax:hover::after,.tile:hover::after{opacity:1}
+/* tiles are smaller than the bento blocks, so the pool is tightened to match */
+.tile::after{background:radial-gradient(180px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb,var(--accent) 17%,transparent), transparent 60%)}
+/* the tile's own content must sit above the wash */
+.tile > *{position:relative; z-index:1}
+.bx-lead::after{background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb,var(--accent) 13%,transparent), transparent 60%)}
+
+/* ---- index: a live micro-chart per row ---- */
+.ixhead{grid-template-columns:52px minmax(0,1fr) 88px 150px 124px}
+.ixrow{grid-template-columns:52px minmax(0,1fr) 88px 150px 124px}
+.ix-cw{display:block; min-width:0}
+.ix-c{height:26px; display:block; width:100%; overflow:visible}
+.ix-c rect,.ix-c path{transition:fill .25s, stroke .25s, transform .4s cubic-bezier(.2,.8,.2,1)}
+.ix-c rect{fill:color-mix(in srgb,var(--faint) 45%, transparent); transform-origin:center bottom}
+.ix-c path{stroke:color-mix(in srgb,var(--faint) 55%, transparent); fill:none; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round}
+.ixrow:hover .ix-c rect{fill:var(--accent)}
+.ixrow:hover .ix-c path{stroke:var(--accent)}
+.ix-n{transition:color .25s}
+.ixrow:hover .ix-n{color:var(--accent-ink)}
+.ix-s .arr{display:inline-block; transition:transform .25s}
+.ixrow:hover .ix-s .arr{transform:translateX(4px)}
+
+/* ---- scroll reveal ---- */
+.rv{opacity:0; transform:translateY(14px)}
+.rv.in{opacity:1; transform:none; transition:opacity .6s cubic-bezier(.2,.8,.2,1), transform .6s cubic-bezier(.2,.8,.2,1)}
+
+/* ---- magnetic primary button ---- */
+.btn-primary{will-change:transform}
+
+@media (max-width:880px){
+  .ixhead{grid-template-columns:44px minmax(0,1fr) auto}
+  .ixrow{grid-template-columns:44px minmax(0,1fr) auto}
+  .ix-cw{display:none}
+  .ticker{display:none}
+}
+
+/* motion is a garnish: if the reader opted out, everything above goes static */
+@media (prefers-reduced-motion:reduce){
+  .tick-track{animation:none}
+  .xhair{display:none}
+  .bx::after,.ax::after,.tile::after{display:none}
+  .rv{opacity:1; transform:none}
+  .hero h1 .mc{transition:none}
+}
+
+
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="wrap topbar-inner">
-    <div class="brand">
-      <span class="dot"></span>
-      <span>Prajit Jawahar<small>FP&amp;A · Financial Modelling Portfolio</small></span>
-    </div>
-    <nav class="nav">
-      <button class="iconbtn" id="theme" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
-    </nav>
+<div class="masthead">
+  <div class="wrap mast-inner">
+    <span class="mast-name">Prajit Jawahar</span>
+    <span class="mast-rule"></span>
+    <span class="mast-meta">Financial Modelling Portfolio</span>
+    <span class="mast-rule"></span>
+    <button class="iconbtn" id="theme" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
   </div>
+  <div class="ticker" aria-hidden="true"><div class="tick-track" id="tickTrack"></div></div>
 </div>
 
 <header class="hero">
+  <div class="xhair" id="xhair"><i class="xv"></i><i class="xh"></i><i class="xd"></i></div>
   <div class="wrap">
-    <span class="eyebrow"><span style="white-space:nowrap">Valuation ·</span> <span style="white-space:nowrap">Forecasting ·</span> <span style="white-space:nowrap">Revenue Management</span></span>
-    <h1>Turning financial data into <em>decisions</em>, <span class="nb">not just reports.</span></h1>
-    <p class="lede">Thirty-two hands-on projects across nine skill areas, from FP&amp;A and valuation to revenue management and ETF analytics.
-      Each is a working Excel file with live formulas, and they all centre on one fictional company, <b>Helios Consumer GmbH</b>,
-      so the numbers connect across the whole set.</p>
-    <div class="hero-meta">
-      <span class="tag"><b>Excel-native</b> · every figure formula-driven</span>
-      <span class="tag"><b>Interactive</b> · scenarios &amp; drill-downs</span>
-      <span class="tag"><b>Sample data</b> · illustrative, not real accounts</span>
+
+    <div class="dateline">
+      <span>No. 01 — Modelling Portfolio</span>
+      <span>Subject: <b>Helios Consumer GmbH</b></span>
+      <span>Coverage: Valuation · Forecasting · Revenue Management</span>
+      <span class="dl-sp">32 models · 9 areas</span>
     </div>
 
-    <div class="stats" id="stats">
-      <div class="stat"><div class="k" data-count="32" data-suffix="">0</div><div class="l">Projects</div></div>
-      <div class="stat"><div class="k" data-count="49.5" data-prefix="€" data-suffix="M" data-dec="1">0</div><div class="l">Revenue modelled</div></div>
-      <div class="stat"><div class="k" data-count="12" data-suffix="mo">0</div><div class="l">Rolling forecast</div></div>
-      <div class="stat"><div class="k" data-count="9" data-suffix="">0</div><div class="l">Skill areas</div></div>
-      <div class="stat"><div class="k" data-count="100" data-suffix="%">0</div><div class="l">Formula-driven</div></div>
+    <h1>Turning financial data into <em>decisions</em>, <span class="nb">not just reports.</span></h1>
+
+    <div class="hero-rule"></div>
+
+    <div class="hero-cols">
+      <p class="lede">Thirty-two hands-on projects across nine skill areas, from FP&amp;A and valuation to revenue
+        management and ETF analytics. Each is a working Excel file with <b>live formulas</b>, and they all centre on one
+        fictional company, <b>Helios Consumer GmbH</b>, so the numbers connect across the whole set.</p>
+      <div class="abstract">
+        <h6>Note to the reader</h6>
+        <p>Every figure below is computed, not typed. Open any workbook and change an input: the statements,
+          the valuation and the commentary all recalculate.</p>
+        <p>Helios is fictional and the data illustrative. The technique is the point.</p>
+      </div>
     </div>
+
+    <div class="bento bento-stats" id="stats">
+      <div class="bx bx-lead">
+        <div>
+          <span class="bcap">Portfolio at a glance</span>
+          <div class="bk" data-count="32" data-suffix="">0</div>
+          <div class="bl">Excel models, built from scratch</div>
+          <div class="bsub">Across nine skill areas, all reconciling to one company.</div>
+        </div>
+        <svg class="bx-spark" id="spark" viewBox="0 0 320 46" preserveAspectRatio="none" role="img" aria-label="Modelled revenue trend"></svg>
+      </div>
+      <div class="bx"><div class="bk" data-count="49.5" data-prefix="€" data-suffix="M" data-dec="1">0</div><div class="bl">Revenue modelled</div></div>
+      <div class="bx"><div class="bk" data-count="9" data-suffix="">0</div><div class="bl">Skill areas</div></div>
+      <div class="bx"><div class="bk" data-count="12" data-suffix="mo">0</div><div class="bl">Rolling forecast</div></div>
+      <div class="bx"><div class="bk" data-count="100" data-suffix="%">0</div><div class="bl">Formula-driven</div></div>
+    </div>
+
   </div>
 </header>
 
 <main class="wrap">
+
   <div class="section-head">
     <div>
-      <h2>The projects</h2>
-      <p>Browse by skill area, or jump straight to any project. Click a tile for the detail and the Excel file.</p>
+      <h2>Nine areas of work</h2>
+      <p>Pick an area to narrow the index below, or browse all thirty-two.</p>
+    </div>
+    <span class="count-note" id="areanote"></span>
+  </div>
+  <div class="bento bento-areas" id="areas" role="group" aria-label="Filter by skill area"></div>
+
+  <div class="section-head">
+    <div>
+      <h2>Index of models</h2>
+      <p>Thirty-two workbooks in order. Select any row for the method, the chart and the Excel file.</p>
     </div>
     <div class="tiles-controls">
       <span class="select"><select id="projectSelect" aria-label="Jump to a project"><option value="">Jump to a project…</option></select></span>
-      <span class="count-note" id="countnote"></span>
+      <span class="vswitch" role="group" aria-label="View style">
+        <button id="vIndex" aria-pressed="true">Index</button>
+        <button id="vCards" aria-pressed="false">Cards</button>
+      </span>
     </div>
   </div>
   <div class="filterbar" id="filters" role="group" aria-label="Filter by skill area"></div>
-  <div id="sections"></div>
+  <span class="count-note" id="countnote"></span>
+
+  <div class="indexview" id="indexview">
+    <div class="indexwrap">
+      <div class="ixhead">
+        <span>No.</span><span>Model</span><span class="ixh-a">Trend</span><span class="ixh-a">Area</span><span style="text-align:right">Signal</span>
+      </div>
+      <div id="ixrows"></div>
+    </div>
+  </div>
+
+  <div class="cardsview" id="cardsview" hidden>
+    <div id="sections"></div>
+  </div>
 
   <div class="method">
     <span class="eyebrow">How these were built</span>
@@ -775,16 +1184,18 @@ const PROJECTS=[
   q:"What is Deutsche Börse actually worth, built off its real FY2025 results?",
   file:"32_DCF_Deutsche_Boerse_DB1.xlsx",
   tags:["FCFF DCF","WACC & terminal value","Sensitivity & implied growth"],
-  chart:{type:"hbars", title:"Value per share vs terminal growth (WACC 6%)",
+  chart:{type:"hbars", title:"Value per share vs terminal growth (WACC 6.04%)",
    labels:["g 1.0%","g 1.5%","g 2.0%","g 2.5%","g 3.0%"],
-   vals:[271.52,300.27,336.21,382.42,444.03], prefix:"€", dec:2},
+   vals:[268.74,296.91,332.05,377.09,436.93], prefix:"€", dec:2},
   result:{badge:"pos", tag:"Undervalued",
-   html:"DCF on Deutsche Börse (DB1) off real FY2025 results: <b>€332 per share</b> vs a €293.70 market price (~13% upside). The market price implies <b>~1.5%</b> perpetual growth, below inflation for a business guided to grow 9%."},
+   html:"DCF on Deutsche Börse (DB1) off real FY2025 results: <b>€332.05 per share</b> vs a €293.70 market price, so the shares screen <b>13.1% cheap</b>. The market price implies only <b>1.45%</b> perpetual growth, below inflation for a business guided to grow 9%."},
   detail:{built:"A full FCFF DCF on Deutsche Börse AG built from the FY2025 preliminary results (11 Feb 2026) and market data of 6 Oct 2026: explicit 2026 to 2030 forecast anchored on company guidance, CAPM-based WACC, Gordon terminal value, equity bridge with net debt and minorities, a terminal-growth x WACC sensitivity grid, and a reverse-DCF solving for the growth rate implied by the market price.",
-   tech:["FCFF from EBITDA with cash tax on EBIT and capex","Treasury result (Clearstream banking book) treated as operating: the working-capital question reframed","CAPM cost of equity, market-value WACC weights","Gordon growth terminal value and discounting","Equity bridge: net debt and capitalised minorities","Two-way sensitivity grid and market-implied growth solve"],
+   tech:["Live in-browser model: drag WACC and terminal growth, the valuation recomputes",
+    "FCFF from EBITDA with cash tax on EBIT and capex","Treasury result (Clearstream banking book) treated as operating: the working-capital question reframed","CAPM cost of equity, market-value WACC weights","Gordon growth terminal value and discounting","Equity bridge: net debt and capitalised minorities","Two-way sensitivity grid and market-implied growth solve"],
    skills:["Company valuation","DCF modelling","Capital markets judgement"]}
  }
 ];
+const PREVIEW={"1":{"s":["README","Variance Analysis"],"f":97,"n":"Variance Analysis","e":0,"g":[["","FY2025 Budget vs. Actual: P&L Variance Analysis"],["","EUR thousands (€000). Costs shown negative (contribution to EBITDA): a positive variance is always Favourable."],["","Line item (€000)","Budget","Actual","Variance €","Variance %","F / U"],["","Revenue: Consumer Electronics","30,000","31,200","1,200","4.0%","Favourable"],["","Revenue: Home Appliances","12,000","11,400","-600.0","-5.0%","Unfavourable"],["","Revenue: Accessories","6,000","6,900","900.0","15.0%","Favourable"],["","Total Revenue","48,000","49,500","1,500","3.1%","Favourable"],["","Cost of Goods Sold","-28,800","-30,100","-1,300","-4.5%","Unfavourable"],["","Gross Profit","19,200","19,400","200.0","1.0%","Favourable"],["","Sales & Marketing","-4,800","-5,100","-300.0","-6.2%","Unfavourable"],["","Research & Development","-2,400","-2,250","150.0","6.2%","Favourable"],["","General & Administrative","-3,600","-3,750","-150.0","-4.2%","Unfavourable"],["","Distribution & Logistics","-1,920","-2,050","-130.0","-6.8%","Unfavourable"],["","Total Operating Expenses","-12,720","-13,150","-430.0","-3.4%","Unfavourable"],["","EBITDA","6,480","6,250","-230.0","-3.5%","Unfavourable"]],"x":[["F6","=IF(C6=0,\"-\",E6/ABS(C6))","4.0%"],["G6","=IF(ABS(E6)<0.5,\"On plan\",IF(E6>0,\"Favourable\",\"Unfavourable\"))","Favourable"]]},"2":{"s":["README","Assumptions","Cash Flow"],"f":183,"n":"Cash Flow","e":0,"g":[["","FY2025 Direct Cash Flow Forecast"],["","EUR thousands (€000). Green = linked from Assumptions. Rolling monthly balance with covenant test."],["","€000","Jan","Feb","Mar","Apr","May"],["","Net revenue (memo)","3,300","3,450","3,900","3,780","3,960"],["","CASH INFLOWS"],["","Collections from customers","3,885","3,368","3,652","3,846","3,861"],["","Other inflows","0","0","0","0","0"],["","Total cash inflows","3,885","3,368","3,652","3,846","3,861"],["","CASH OUTFLOWS"],["","Supplier payments (COGS, 1-mo lag)","1,600","2,006","2,098","2,371","2,298"],["","Payroll","700.0","700.0","700.0","700.0","700.0"],["","Other operating expenses","396.0","396.0","396.0","396.0","396.0"],["","Capital expenditure","0","0","400.0","0","0"],["","Tax payments","0","0","350.0","0","0"],["","Total cash outflows","2,696","3,102","3,944","3,467","3,394"]],"x":[["C6","=Assumptions!C17","3,300"],["D6","=Assumptions!D17","3,450"]]},"3":{"s":["README","Revenue Forecast"],"f":69,"n":"Revenue Forecast","e":0,"g":[["","FY2026 Revenue Forecast: Driver-Based, Scenario-Flexed"],["","Revenue = Volume ('000 units) × ASP (€/unit). Figures €000 unless shown. Blue = input, yellow = scenario switch."],["","Base drivers"],["","Base annual volume ('000 units)","1,800"],["","Base average selling price (€/unit)","27.5"],["","Scenario switch (1=Base, 2=Bull, 3=Bear)","2.00","BULL case"],["","Scenario assumptions"],["","Scenario","Volume growth","Price change"],["","Base","5.0%","2.0%"],["","Bull","12.0%","4.0%"],["","Bear","-6.0%","-1.0%"],["","Annual revenue by scenario (€000)"],["","","Base","Bull","Bear","Selected"],["","Volume ('000 units)","1,890","2,016","1,692","2,016"],["","ASP (€/unit)","28.1","28.6","27.2","28.6"]],"x":[["D9","=CHOOSE($C$9,\"BASE case\",\"BULL case\",\"BEAR case\")","BULL case"],["C19","=$C$6*(1+$C$13)","1,890"]]},"4":{"s":["README","Budget Builder"],"f":35,"n":"Budget Builder","e":0,"g":[["","FY2026 Operating Budget: Bottom-Up by Department"],["","€000. Personnel = Headcount × Avg salary × (1 + benefits load). Yellow = input. Change anything and totals reflow."],["","Benefits & on-costs load","22.0%","applied to all salary costs"],["","Department","Head-count","Avg salary","Personnel","Travel","Software & tools"],["","Sales","24.0","62.0","1,815","240.0","90.0"],["","Marketing","12.0","58.0","849.1","90.0","160.0"],["","R&D","18.0","70.0","1,537","40.0","220.0"],["","Operations","40.0","45.0","2,196","60.0","110.0"],["","Finance & Admin","10.0","66.0","805.2","20.0","140.0"],["","IT","8.00","72.0","702.7","20.0","420.0"],["","Company total","112.0","57.9","7,906","470.0","1,140"],["","","","","","",""],["","","","","","",""]],"x":[["E8","=C8*D8*(1+$C$5)","1,815"],["J8","=E8+SUM(F8:I8)","2,445"]]},"5":{"s":["README","KPI Dashboard"],"f":64,"n":"KPI Dashboard","e":0,"g":[["","Helios Consumer GmbH: FY2025 Financial KPI Dashboard"],["","€000 unless shown. Blue = input (from quarterly accounts). Days basis = 91.25/quarter, 365/year."],["","Quarterly data inputs (€000)"],["","Item","Q1","Q2","Q3","Q4","FY2025"],["","Revenue","11,300","12,000","12,400","13,800","49,500"],["","Cost of goods sold","6,900","7,320","7,540","8,340","30,100"],["","EBITDA","1,300","1,550","1,600","1,800","6,250"],["","Net income","700.0","900.0","950.0","1,150","3,700"],["","Cash","3,200","3,600","3,900","4,800","4,800"],["","Accounts receivable","5,400","5,600","5,800","6,100","6,100"],["","Inventory","4,200","4,300","4,100","3,900","3,900"],["","Accounts payable","3,800","3,900","4,000","4,200","4,200"],["","Current assets","13,600","14,300","14,600","15,600","15,600"],["","Current liabilities","7,200","7,400","7,500","7,800","7,800"],["","Key performance indicators"]],"x":[["G7","=SUM(C7:F7)","49,500"],["G8","=SUM(C8:F8)","30,100"]]},"6":{"s":["README","Assumptions","3-Statement Model"],"f":142,"n":"3-Statement Model","e":0,"g":[["","Helios Consumer GmbH: Integrated Financial Model"],["","EUR thousands (€000). Green = linked from Assumptions. FY2024 is the base year; FY2025 to FY2027 are forecast."],["","€000","FY2024","FY2025","FY2026","FY2027"],["","INCOME STATEMENT"],["","Revenue","45,000","49,500","52,965","56,143"],["","Cost of goods sold","-27,450","-30,195","-32,309","-34,247"],["","Gross profit","17,550","19,305","20,656","21,896"],["","Operating expenses","-11,925","-13,118","-14,036","-14,878"],["","EBITDA","5,625","6,188","6,621","7,018"],["","Depreciation & amortisation","-1,200","-1,200","-1,228","-1,265"],["","EBIT","4,425","4,988","5,392","5,753"],["","Interest expense","-300.0","-300.0","-300.0","-300.0"],["","Profit before tax","4,125","4,688","5,092","5,453"],["","Tax","-1,238","-1,406","-1,528","-1,636"],["","Net income","2,888","3,281","3,564","3,817"]],"x":[["C7","=Assumptions!$C$6","45,000"],["D7","=C7*(1+Assumptions!$C$7)","49,500"]]},"7":{"s":["README","Assumptions","DCF","Comps","Summary"],"f":73,"n":"DCF","e":0,"g":[["","Discounted Cash Flow — Unlevered FCF"],["","€000. Green = linked from Assumptions."],["","€000","FY2025","FY2026","FY2027","FY2028","FY2029"],["","Period (t)","1.00","2.00","3.00","4.00","5.00"],["","Revenue","49,500","52,965","56,143","58,950","61,308"],["","EBIT","4,950","5,296","5,614","5,895","6,131"],["","NOPAT (EBIT x (1-tax))","3,465","3,708","3,930","4,127","4,292"],["","add: D&A","1,188","1,271","1,347","1,415","1,471"],["","less: Capex","-1,485","-1,589","-1,684","-1,769","-1,839"],["","less: change in NWC","-579.5","-446.2","-409.2","-361.5","-303.6"],["","Unlevered FCF","2,589","2,944","3,184","3,411","3,620"],["","Discount factor","0.927","0.860","0.797","0.739","0.685"],["","PV of FCF","2,400","2,530","2,538","2,521","2,480"],["","Sum of PV of FCF (FY2025-FY2029)","12,469"],["","Terminal value (Gordon growth)","63,065"]],"x":[["C7","=Assumptions!$C$18","49,500"],["D7","=C7*(1+Assumptions!$C$29)","52,965"]]},"8":{"s":["README","Portfolio"],"f":59,"n":"Portfolio","e":0,"g":[["","Strategic Asset Allocation"],["","Returns and volatilities are annual. Blue = input."],["","Asset class","Weight","Exp. return","Volatility"],["","Global equities","45.0%","8.0%","16.0%"],["","Government bonds","25.0%","3.0%","5.0%"],["","Real estate (REITs)","12.0%","6.0%","12.0%"],["","Commodities","8.0%","5.0%","18.0%"],["","Cash","10.0%","2.0%","1.0%"],["","Total / check","100.0%"],["","Risk-free rate","2.0%"],["","","","","","","Correlation matrix"],["","","","","","",""],["","","","","","","Global equit"],["","","","","","","Government b"],["","","","","","","Real estate"]],"x":[["C11","=SUM(C6:C10)","100.0%"],["H25","=$C$6*$C$6*$E$6*$E$6*H17","0.005"]]},"9":{"s":["README","Market Analysis"],"f":24,"n":"Market Analysis","e":0,"g":[["","Market Entry: Smart-Home Devices, DACH region"],["","All monetary figures in € millions (€M). Blue = input."],["","Market sizing (top-down)"],["","DACH households (M)","41.0"],["","Category penetration (%)","25.0%"],["","Average annual spend (€/household)","180.0"],["","TAM — Total addressable market (€M)","1,845"],["","Serviceable share of TAM (%)","35.0%"],["","SAM — Serviceable available market (€M)","645.8"],["","Attainable share of SAM, 3-yr (%)","8.0%"],["","SOM — Serviceable obtainable market (€M)","51.7"],["","Competitor scorecard (1 = weak, 5 = strong)"],["","Competitor","Price","Product quality","Brand","Distribution","Innovation"],["","Criterion weight","20.0%","25.0%","20.0%","20.0%","15.0%"],["","Helios (us)","3.00","4.00","3.00","4.00","4.00"]],"x":[["H17","=SUM(C17:G17)","100.0%"],["H18","=SUMPRODUCT(C18:G18,C$17:G$17)","3.60"]]},"10":{"s":["README","Dashboard"],"f":32,"n":"Dashboard","e":0,"g":[["","Sales Analytics — FY2025"],["","Revenue in €000. Blue = raw input data."],["","Transactions (source data)"],["","Month","Region","Product","Units","Revenue (€000)",""],["","Jan","DACH","Alpha","1,200","540.0",""],["","Jan","Nordics","Beta","800.0","300.0",""],["","Feb","DACH","Gamma","600.0","270.0",""],["","Feb","Benelux","Alpha","950.0","428.0",""],["","Mar","Nordics","Alpha","1,100","495.0",""],["","Mar","DACH","Beta","700.0","263.0",""],["","Apr","Benelux","Gamma","520.0","234.0",""],["","Apr","DACH","Alpha","1,350","608.0",""],["","May","Nordics","Beta","880.0","330.0",""],["","Jun","DACH","Gamma","640.0","288.0",""],["","Jun","Benelux","Beta","760.0","285.0",""]],"x":[["I7","=SUMIFS($F$7:$F$24,$B$7:$B$24,H7)","840.0"],["I8","=SUMIFS($F$7:$F$24,$B$7:$B$24,H8)","698.0"]]},"11":{"s":["README","LBO"],"f":54,"n":"LBO","e":0,"g":[["","Leveraged Buyout — Helios Consumer GmbH"],["","All figures € millions (€M). Blue = input."],["","Entry assumptions"],["","Entry EBITDA (€M)","6.20"],["","Entry EV / EBITDA multiple","8.00"],["","Entry enterprise value (€M)","49.6"],["","Leverage (Debt / EBITDA)","4.00"],["","Debt at entry (€M)","24.8"],["","Sponsor equity at entry (€M)","24.8"],["","Operating & exit assumptions"],["","EBITDA growth p.a.","6.0%"],["","Interest rate on debt","6.0%"],["","Cash tax rate","30.0%"],["","Capex (% of EBITDA)","20.0%"],["","Exit EV / EBITDA multiple","8.50"]],"x":[["D23","=$C$6*(1+$C$14)","6.57"],["E23","=D23*(1+$C$14)","6.97"]]},"12":{"s":["README","Accretion-Dilution"],"f":14,"n":"Accretion-Dilution","e":0,"g":[["","M&A Accretion / Dilution"],["","€M and per-share (€). Blue = input."],["","Acquirer (Helios)"],["","Net income (€M)","3.70"],["","Shares outstanding (M)","3.00"],["","EPS (€)","1.23"],["","Share price (€)","18.0"],["","Target"],["","Net income (€M)","1.60"],["","Equity value, standalone (€M)","22.0"],["","Offer premium","25.0%"],["","Offer value (€M)","27.5"],["","Deal structure"],["","% funded with cash / new debt","50.0%"],["","% funded with stock","50.0%"]],"x":[["C15","=C13*(1+C14)","27.5"],["C28","=-C25*C20*(1-C22)","-0.481"]]},"13":{"s":["README","Comps"],"f":13,"n":"Comps","e":0,"g":[["","Comparable Companies & Precedent Transactions"],["","€M unless per-share. Blue = input."],["","Helios metrics (€M)"],["","Revenue","49.5"],["","EBITDA","6.20"],["","Net income","3.70"],["","Net debt","1.60"],["","Shares outstanding (M)","3.00"],["","Trading comparables"],["","Company","EV/Revenue","EV/EBITDA","P/E"],["","Nordwind Appliances","1.10","9.20","15.5"],["","Rheingold Electronics","1.40","10.4","18.0"],["","Alpina Home","0.900","8.60","14.2"],["","Vega Consumer","1.60","11.1","19.5"],["","Meridian Devices","1.20","9.80","16.8"]],"x":[["C19","=MEDIAN(C14:C18)","1.20"],["D19","=MEDIAN(D14:D18)","9.80"]]},"14":{"s":["README","Frontier"],"f":50,"n":"Frontier","e":0,"g":[["","Two-Asset Efficient Frontier — Equities & Bonds"],["","Annual figures. Blue = input."],["","Assumptions"],["","Equities — expected return","8.0%"],["","Equities — volatility","16.0%"],["","Bonds — expected return","3.0%"],["","Bonds — volatility","5.0%"],["","Correlation (equity, bond)","0.150"],["","Risk-free rate","2.0%"],["","Frontier (sweep of equity weight)"],["","Equity weight","Bond weight","Return","Volatility","Sharpe"],["","0.0%","100.0%","3.0%","5.0%","0.200"],["","10.0%","90.0%","3.5%","5.0%","0.300"],["","20.0%","80.0%","4.0%","5.5%","0.365"],["","30.0%","70.0%","4.5%","6.4%","0.394"]],"x":[["D15","=B15*$C$6+C15*$C$8","3.0%"],["E15","=SQRT(B15^2*$C$7^2+C15^2*$C$9^2+2*B15*C15*$C$7*$C$9*$C$10)","5.0%"]]},"15":{"s":["README","Plan"],"f":15,"n":"Plan","e":0,"g":[["","Retirement & Goal-Based Plan"],["","€ unless shown. Blue = input."],["","Client inputs"],["","Current age","30.0"],["","Retirement age","60.0"],["","Years in retirement","25.0"],["","Current savings (€)","25,000"],["","Monthly contribution (€)","600.0"],["","Expected return (accumulation)","7.0%"],["","Expected return (in retirement)","4.0%"],["","Inflation","2.0%"],["","Desired annual income today (€)","30,000"],["","Accumulation to retirement"],["","Years to retirement","30.0"],["","Months to retirement","360.0"]],"x":[["C20","=C9*POWER(1+C11,C17)","190,306"],["C21","=C10*((POWER(1+C19,C18)-1)/C19)","731,983"]]},"16":{"s":["README","Bond"],"f":49,"n":"Bond","e":0,"g":[["","Bond Analytics"],["","Annual coupon, annual compounding. Blue = input."],["","Bond terms"],["","Face value (€)","1,000"],["","Coupon rate","5.0%"],["","Maturity (years)","10.0"],["","Yield to maturity","6.0%"],["","Cash-flow schedule"],["","Year (t)","Cash flow","PV of CF","t × PV","t(t+1) × PV"],["","1.00","50.0","47.2","47.2","94.3"],["","2.00","50.0","44.5","89.0","267.0"],["","3.00","50.0","42.0","125.9","503.8"],["","4.00","50.0","39.6","158.4","792.1"],["","5.00","50.0","37.4","186.8","1,121"],["","6.00","50.0","35.2","211.5","1,480"]],"x":[["C13","=IF(B13>$C$8,0,$C$6*$C$7+IF(B13=$C$8,$C$6,0))","50.0"],["D13","=C13/POWER(1+$C$9,B13)","47.2"]]},"17":{"s":["README","Unit Economics"],"f":31,"n":"Unit Economics","e":0,"g":[["","Unit Economics — SaaS style"],["","€ and months. Blue = input."],["","Acquisition"],["","Monthly marketing spend (€)","60,000"],["","New customers per month","150.0"],["","CAC — cost per acquisition (€)","400.0"],["","Value"],["","ARPA — revenue per account / mo (€)","120.0"],["","Gross margin","80.0%"],["","Monthly churn","4.0%"],["","Avg customer lifetime (months)","25.0"],["","LTV — lifetime value (€)","2,400"],["","Verdict"],["","LTV / CAC ratio","6.00"],["","CAC payback (months)","4.17"]],"x":[["C15","=C11*C12*C14","2,400"],["C19","=C8/(C11*C12)","4.17"]]},"18":{"s":["README","Capital Budgeting"],"f":25,"n":"Capital Budgeting","e":0,"g":[["","Capital Budgeting — Project Appraisal"],["","€000. Blue = input."],["","Assumptions"],["","Initial investment (€000)","2,400"],["","Discount rate (WACC)","10.0%"],["","Cash flows (€000)"],["","€000","Year 0","Year 1","Year 2","Year 3","Year 4"],["","Net cash flow","-2,400","620.0","760.0","900.0","980.0"],["","Discount factor","1.00","0.909","0.826","0.751","0.683"],["","PV of cash flow","-2,400","563.6","628.1","676.2","669.4"],["","Cumulative cash flow","-2,400","-1,780","-1,020","-120.0","860.0"],["","Decision metrics"],["","NPV (€000)","789.2"],["","IRR","21.0%"],["","Profitability index","1.33"]],"x":[["C12","=1/POWER(1+$C$7,0)","1.00"],["D12","=1/POWER(1+$C$7,1)","0.909"]]},"19":{"s":["README","Pricing"],"f":36,"n":"Pricing","e":0,"g":[["","Pricing & Break-Even"],["","€ and units. Blue = input."],["","Cost structure"],["","Base price (€/unit)","50.0"],["","Variable cost (€/unit)","30.0"],["","Fixed costs (€)","240,000"],["","Target profit (€)","120,000"],["","Base volume at base price (units)","20,000"],["","Price elasticity of demand","-1.80"],["","Break-even"],["","Contribution margin (€/unit)","20.0"],["","Contribution margin ratio","40.0%"],["","Break-even (units)","12,000"],["","Break-even revenue (€)","600,000"],["","Units for target profit","18,000"]],"x":[["C18","=(C8+C9)/C14","18,000"],["C22","=$C$10*POWER(B22/$C$6,$C$11)","24,177"]]},"20":{"s":["README","Cohorts"],"f":28,"n":"Cohorts","e":0,"g":[["","Cohort & Retention Analysis"],["","Retention % by months since signup. Blue = input."],["","Retention triangle (% of cohort still active)"],["","Cohort","M0","M1","M2","M3","M4"],["","Cohort 1","100%","62%","50%","44%","40%"],["","Cohort 2","100%","60%","48%","42%","38%"],["","Cohort 3","100%","65%","53%","46%","42%"],["","Cohort 4","100%","58%","47%","41%","37%"],["","Cohort 5","100%","64%","52%","45%","41%"],["","Cohort 6","100%","61%","49%","43%","39%"],["","Average","100%","62%","50%","44%","39%"],["","LTV build from average curve"],["","Cohort size (customers)","1,000"],["","Monthly revenue per active (€)","45.0"],["","Gross margin","75.0%"]],"x":[["C13","=AVERAGE(C7:C12)","100%"],["D13","=AVERAGE(D7:D12)","62%"]]},"21":{"s":["README","RFM"],"f":88,"n":"RFM","e":0,"g":[["","RFM Customer Segmentation"],["","Recency in days, Monetary in €. Blue = input."],["","Customer scoring"],["","Customer","Recency (d)","Frequency","Monetary (€)","R","F"],["","C001","12.0","14.0","3,200","5.00","5.00"],["","C002","210.0","8.00","1,400","2.00","4.00"],["","C003","45.0","8.00","620.0","4.00","4.00"],["","C004","5.00","20.0","5,200","5.00","5.00"],["","C005","95.0","3.00","1,400","3.00","2.00"],["","C006","300.0","1.00","90.0","1.00","1.00"],["","C007","40.0","11.0","700.0","4.00","4.00"],["","C008","150.0","6.00","410.0","2.00","3.00"],["","C009","18.0","16.0","4,100","5.00","5.00"],["","C010","240.0","5.00","620.0","2.00","3.00"],["","C011","120.0","2.00","1,100","3.00","2.00"]],"x":[["F7","=IF(C7<=30,5,IF(C7<=60,4,IF(C7<=120,3,IF(C7<=240,2,1))))","5.00"],["G7","=IF(D7>=12,5,IF(D7>=8,4,IF(D7>=5,3,IF(D7>=2,2,1))))","5.00"]]},"22":{"s":["README","Forecast"],"f":77,"n":"Forecast","e":0,"g":[["","Demand Forecasting — Trend & Seasonality"],["","Units. Blue = input."],["","History (24 months) & fitted trend","","","","",""],["","Month #","Cal. month","Actual","Trend","Fitted",""],["","1.00","1.00","920.0","964.5","868.1",""],["","2.00","2.00","900.0","978.8","861.4",""],["","3.00","3.00","1,010","993.1","973.3",""],["","4.00","4.00","1,040","1,007","1,007",""],["","5.00","5.00","1,080","1,022","1,042",""],["","6.00","6.00","1,100","1,036","1,067",""],["","7.00","7.00","1,040","1,050","1,019",""],["","8.00","8.00","1,030","1,065","1,022",""],["","9.00","9.00","1,110","1,079","1,100",""],["","10.0","10.0","1,160","1,093","1,148",""],["","11.0","11.0","1,210","1,108","1,196",""]],"x":[["E7","=INTERCEPT(D7:D30,B7:B30)+SLOPE(D7:D30,B7:B30)*B7","964.5"],["F7","=E7*INDEX($I$6:$I$17,C7)","868.1"]]},"23":{"s":["README","Assumptions","Long-Range Plan"],"f":118,"n":"Long-Range Plan","e":0,"g":[["","Helios Consumer GmbH — 7-Year Long-Range Plan"],["","€000. Green = linked from Assumptions. Driven by the selected strategic scenario."],["","Selected revenue CAGR","6.0%"],["","Selected EBITDA margin","12.5%"],["","Selected capex % of revenue","3.0%"],["","€000","FY2025","FY2026","FY2027","FY2028","FY2029"],["","Period (t)","1.00","2.00","3.00","4.00","5.00"],["","Revenue","47,700","50,562","53,596","56,811","60,220"],["","EBITDA","5,962","6,320","6,699","7,101","7,528"],["","EBITDA margin","12.5%","12.5%","12.5%","12.5%","12.5%"],["","less: D&A","-1,145","-1,213","-1,286","-1,363","-1,445"],["","EBIT","4,818","5,107","5,413","5,738","6,082"],["","NOPAT","3,372","3,575","3,789","4,017","4,258"],["","add: D&A","1,145","1,213","1,286","1,363","1,445"],["","less: capex","-1,431","-1,517","-1,608","-1,704","-1,807"]],"x":[["C11","=Assumptions!$C$6*(1+$C$5)","47,700"],["D11","=C11*(1+$C$5)","50,562"]]},"24":{"s":["README","Capital Structure"],"f":58,"n":"Capital Structure","e":0,"g":[["","Capital Structure & WACC"],["","€000 unless %. Blue = input."],["","Assumptions"],["","Enterprise value (€000)","60,000"],["","EBITDA (€000)","6,200"],["","EBIT (€000)","5,000"],["","Unlevered beta","0.900"],["","Risk-free rate","3.0%"],["","Equity risk premium","6.0%"],["","Base cost of debt","4.0%"],["","Credit spread per turn of leverage","0.4%"],["","Tax rate","30.0%"],["","","","","","","Leverage scenarios"],["","","","","","","Debt/EBITDA"],["","","","","","","0"]],"x":[["J18","=IF(I18<=0,\"n/a\",H18/I18)","0"],["K18","=$C$12+G18*$C$13","4.0%"]]},"25":{"s":["README","13-Week Forecast"],"f":133,"n":"13-Week Forecast","e":0,"g":[["","13-Week Rolling Cash Flow Forecast (€000)"],["","Direct method. Blue = input. Rolling weekly balance with minimum-cash and revolver headroom."],["","Minimum cash covenant (€000)","1,000"],["","Undrawn revolver available (€000)","3,000"],["","€000","W1","W2","W3","W4","W5"],["","Opening cash","2,500","2,500","2,930","3,055","3,355"],["","CASH RECEIPTS"],["","Collections from customers","980.0","1,010","995.0","1,040","1,080"],["","Other receipts","0","0","0","0","0"],["","Total receipts","980.0","1,010","995.0","1,040","1,080"],["","CASH DISBURSEMENTS"],["","Supplier payments","600.0","580.0","610.0","590.0","620.0"],["","Payroll","260.0","0","260.0","0","260.0"],["","Rent & overheads","120.0","0","0","0","120.0"],["","Tax payments","0","0","0","0","0"]],"x":[["C21","=SUM(C15:C20)","980.0"],["D21","=SUM(D15:D20)","580.0"]]},"26":{"s":["README","Forecast Accuracy"],"f":45,"n":"Forecast Accuracy","e":0,"g":[["","Weekly Cash Flow — Forecast Accuracy & Variance (€000)"],["","Blue = input (forecast & actual). Tolerance band is an input."],["","Accuracy tolerance (± band on weekly variance)","5.0%"],["","€000","W1","W2","W3","W4","W5"],["","Forecast net cash flow","320.0","280.0","410.0","350.0","300.0"],["","Actual net cash flow","338.0","266.0","398.0","372.0","286.0"],["","Variance (€000)","18.0","-14.0","-12.0","22.0","-14.0"],["","Variance %","5.6%","-5.0%","-2.9%","6.3%","-4.7%"],["","Abs variance %","5.6%","5.0%","2.9%","6.3%","4.7%"],["","Within tolerance?","No","Yes","Yes","No","Yes"],["","Cumulative variance","18.0","4.00","-8.00","14.0","0"],["","Forecast quality KPIs"],["","MAPE (mean abs % error)","4.3%"],["","Forecast accuracy (1 - MAPE)","95.7%"],["","Hit-rate (weeks within tolerance)","75.0%"]],"x":[["C11","=IF(C8=0,\"n/a\",C10/ABS(C8))","5.6%"],["D11","=IF(D8=0,\"n/a\",D10/ABS(D8))","-5.0%"]]},"27":{"s":["README","Demand Forecast"],"f":85,"n":"Demand Forecast","e":0,"g":[["","Helios Resorts — Daily Rooms Demand Forecast"],["","Rooms. Blue = input. Capacity-constrained property; demand on sold-out days is unconstrained."],["","Drivers"],["","Capacity (rooms)","200.0"],["","Base daily demand (rooms)","150.0"],["","Trend / YoY growth","3.0%"],["","Season index (current period)","1.25"],["","Sold-out demand uplift (turned away)","15.0%"],["","Historical demand & unconstraining (last 14 days)"],["","Day","DOW index","Observed sold","Sold out?","Unconstrained","Model forecast"],["","D1 Mon","0.850","152.0","No","152.0","164.2"],["","D2 Tue","0.880","160.0","No","160.0","170.0"],["","D3 Wed","0.920","168.0","No","168.0","177.7"],["","D4 Thu","1.00","178.0","No","178.0","193.1"],["","D5 Fri","1.25","200.0","Yes","230.0","241.4"]],"x":[["E14","=IF(D14>=$C$6,\"Yes\",\"No\")","No"],["F14","=IF(D14>=$C$6,D14*(1+$C$10),D14)","152.0"]]},"28":{"s":["README","Yield Optimization"],"f":86,"n":"Yield Optimization","e":0,"g":[["","Helios Airlines — Fare-Class Yield & Overbooking"],["","Seats and EUR. Blue = input. Single-cabin, nested fare classes, high-to-low."],["","Cabin capacity (seats)","150.0"],["","Fare classes (high to low)"],["","Class","Fare (EUR)","Mean demand","Std dev","Booking limit"],["","Y — Full","420.0","25.0","10.0","150.0"],["","M — Flexible","300.0","40.0","15.0","130.7"],["","B — Standard","210.0","55.0","20.0","89.9"],["","Q — Discount","140.0","70.0","25.0","29.6"],["","EMSR-b protection (protect higher classes from the next lower class)"],["","Protect classes","Agg. mean","Wtd avg fare","Agg. std","Next fare","Crit. ratio"],["","Y","25.0","420.0","10.0","300.0","28.6%"],["","Y + M","65.0","346.2","18.0","210.0","39.3%"],["","Y + M + B","120.0","283.8","26.9","140.0","50.7%"],["","Overbooking assumptions"]],"x":[["F10","=MAX(0,$C$5-I16)","130.7"],["F11","=MAX(0,$C$5-I17)","89.9"]]},"29":{"s":["README","Revenue Optimisation"],"f":47,"n":"Revenue Optimisation","e":0,"g":[["","Helios Resorts — Revenue Optimisation"],["","Rooms and EUR. Blue = input. Capacity-constrained, highest-value-first allocation."],["","Available rooms (capacity)","200.0"],["","Segment allocation (priority: highest rate first)"],["","Segment","Rate (ADR)","Demand","Elasticity","Rooms sold","Revenue"],["","Transient","240.0","90.0","-1.30","90.0","21,600"],["","Corporate","200.0","60.0","-0.800","60.0","12,000"],["","OTA","180.0","50.0","-1.90","50.0","9,000"],["","Group","160.0","70.0","-1.60","0","0"],["","Total (optimal mix)","","270.0","","200.0","42,600"],["","Revenue-management KPIs"],["","Total revenue (EUR)","42,600"],["","Occupancy","100.0%"],["","ADR (achieved)","213.0"],["","RevPAR","213.0"]],"x":[["F9","=MAX(0,MIN(D9,$C$5))","90.0"],["F10","=MAX(0,MIN(D10,$C$5-SUM(F9:F9)))","60.0"]]},"30":{"s":["README","ETF Portfolio"],"f":82,"n":"ETF Portfolio","e":0,"g":[["","Helios Wealth — Model ETF Portfolio"],["","EUR and %. Blue = input. Multi-asset ETF portfolio vs a blended strategic benchmark."],["","Total portfolio value (EUR)","2,000,000"],["","Holdings, allocation & rebalancing"],["","ETF (fund)","Asset class","Target wt","Market value","Current wt","Drift"],["","Global Developed Equity","Equity","30.0%","640,000","32.0%","2.0%"],["","US Equity (S&P 500)","Equity","15.0%","340,000","17.0%","2.0%"],["","Europe Equity (STOXX 600)","Equity","10.0%","190,000","9.5%","-0.5%"],["","Emerging Markets Equity","Equity","8.0%","150,000","7.5%","-0.5%"],["","Global Aggregate Bonds","Fixed income","20.0%","360,000","18.0%","-2.0%"],["","EUR Corporate Bonds","Fixed income","7.0%","130,000","6.5%","-0.5%"],["","Gold / Commodities","Alternatives","5.0%","100,000","5.0%","0.0%"],["","Global REIT","Real estate","5.0%","90,000","4.5%","-0.5%"],["","Total / weighted","","100.0%","2,000,000","100.0%",""],["","Performance vs blended benchmark"]],"x":[["H9","=(D9-F9)*$C$5","-40,000"],["H10","=(D10-F10)*$C$5","-40,000"]]},"31":{"s":["README","ETF Tracking"],"f":60,"n":"ETF Tracking","e":0,"g":[["","Global Developed Equity (MSCI World) — ETF Comparison"],["","% and EUR. Blue = input. Same index, competing ETFs. Fictional funds."],["","Index 1Y total return (MSCI World)","18.0%"],["","ETF universe & tracking"],["","ETF (fund)","Replication","TER","AUM (EUR bn)","1Y fund ret","Tracking diff"],["","Alpha World Core","Physical (full)","0.12%","45.0","17.9%","-0.14%"],["","Nord World","Physical (sampled)","0.20%","28.0","17.8%","-0.25%"],["","Vertex World","Synthetic (swap)","0.10%","12.0","17.9%","-0.05%"],["","Meridian World","Physical (full)","0.18%","60.0","17.8%","-0.20%"],["","Orion World","Physical (sampled)","0.25%","8.00","17.7%","-0.34%"],["","Helios World Index","Synthetic (swap)","0.15%","20.0","17.9%","-0.12%"],["","Selection scorecard weights"],["","Cost (TER) weight","30.0%"],["","Tracking (error) weight","35.0%"],["","Liquidity (spread) weight","20.0%"]],"x":[["C24","=(MAX($D$9:$D$14)-D9)/(MAX($D$9:$D$14)-MIN($D$9:$D$14))","0.867"],["D24","=(MAX($H$9:$H$14)-H9)/(MAX($H$9:$H$14)-MIN($H$9:$H$14))","0.889"]]},"32":{"s":["Inputs","DCF","Sensitivity"],"f":111,"n":"DCF","e":0,"g":[["DCF — FCFF, 2026E–2030E | € million"],["Year","2026E","2027E","2028E","2029E","2030E"],["Rev w/o treasury growth","9.8%","8.0%","7.0%","6.0%","5.0%"],["Net revenue w/o treasury","5,700","6,156","6,587","6,982","7,331"],["EBITDA-xT margin","54.4%","54.8%","55.2%","55.6%","56.0%"],["EBITDA w/o treasury","3,100","3,373","3,635","3,881","4,104"],["Treasury result","700.0","700.0","700.0","700.0","700.0"],["EBITDA, total","3,800","4,073","4,335","4,581","4,804"],["D&A","-551.4","-595.6","-637.2","-675.5","-709.2"],["EBIT","3,249","3,477","3,698","3,906","4,095"],["Cash tax on EBIT","-856.2","-916.4","-974.6","-1,029","-1,079"],["Capex","-606.6","-655.1","-701.0","-743.0","-780.2"],["Change in WC","0","0","0","0","0"],["FCFF","2,337","2,501","2,659","2,809","2,945"],["Discount factor","0.943","0.889","0.839","0.791","0.746"]],"x":[["B4","=Inputs!$B$18/Inputs!$B$4-1","9.8%"],["B5","=Inputs!$B$18","5,700"]]}};
 const FILTERS=["All","FP&A","Valuation","Portfolio","Strategy","Analytics","Enterprise & LRP","Liquidity Control","Revenue Management","ETF Analytics"];
 
 /* ============ SVG CHART HELPERS ============ */
@@ -814,8 +1225,9 @@ function lineChart(c){
     if(fill){const area=d+`L ${X(n-1)} ${Y(min)} L ${X(0)} ${Y(min)} Z`;
       const ar=el("path",{d:area,fill:col,opacity:.12});svg.appendChild(ar);}
     const p=el("path",{d:d.trim(),fill:"none",stroke:col,"stroke-width":wdt,"stroke-linejoin":"round","stroke-linecap":"round"});
-    const len=Math.max(W,H)*2.4;p.setAttribute("stroke-dasharray",len);p.setAttribute("stroke-dashoffset",len);
-    svg.appendChild(p);requestAnimationFrame(()=>{p.style.transition="stroke-dashoffset 1s ease";p.setAttribute("stroke-dashoffset",0);});
+    const len=Math.max(W,H)*2.4;p.setAttribute("stroke-dasharray",len);p.setAttribute("stroke-dashoffset",0);
+    p.setAttribute("class","anim-line");p.style.setProperty("--len",len);
+    svg.appendChild(p);
     return p;
   }
   if(c.type==="covenant"){path(c.a,colB,2.4,true);
@@ -839,8 +1251,9 @@ function marginChart(c){
   series.forEach(([col,data,wd],idx)=>{
     let d="";data.forEach((v,i)=>{d+=(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)+" ";});
     const p=el("path",{d:d.trim(),fill:"none",stroke:cssv(col),"stroke-width":wd,"stroke-linejoin":"round","stroke-linecap":"round"});
-    const len=1600;p.setAttribute("stroke-dasharray",len);p.setAttribute("stroke-dashoffset",len);
-    svg.appendChild(p);requestAnimationFrame(()=>{p.style.transition=`stroke-dashoffset .9s ease ${idx*.12}s`;p.setAttribute("stroke-dashoffset",0);});
+    const len=1600;p.setAttribute("stroke-dasharray",len);p.setAttribute("stroke-dashoffset",0);
+    p.setAttribute("class","anim-line");p.style.setProperty("--len",len);p.style.setProperty("--d",(idx*.12)+"s");
+    svg.appendChild(p);
     data.forEach((v,i)=>svg.appendChild(el("circle",{cx:X(i),cy:Y(v),r:2.4,fill:cssv(col)})));
   });
   c.labels.forEach((L,i)=>{const t=el("text",{x:X(i),y:H-6,"text-anchor":i===0?"start":(i===3?"end":"middle")});t.textContent=L;svg.appendChild(t);});
@@ -858,8 +1271,8 @@ function barChart(c,horizontal){
       const y=i*rowH+6;
       const t=el("text",{x:labW,y:y+rowH/2,"text-anchor":"end","dominant-baseline":"middle"});t.textContent=L;t.style.fontSize="10px";t.style.fill=cssv("--muted");svg.appendChild(t);
       const w=barW*c.vals[i]/max;
-      svg.appendChild(el("rect",{x:barX,y:y+2,width:0,height:rowH-10,rx:5,fill:cssv("--accent"),opacity:i===0?1:.55+(.45*(c.vals[i]/max)),style:"transition:width .8s cubic-bezier(.2,.7,.3,1) "+(i*.06)+"s"}));
-      const bar=svg.lastChild;requestAnimationFrame(()=>bar.setAttribute("width",w.toFixed(1)));
+      svg.appendChild(el("rect",{x:barX,y:y+2,width:w.toFixed(1),height:rowH-10,rx:5,class:"anim-x",
+        fill:cssv("--accent"),opacity:i===0?1:.55+(.45*(c.vals[i]/max)),style:"--d:"+(i*.06)+"s"}));
       const val=el("text",{x:barX+w+6,y:y+rowH/2,"dominant-baseline":"middle"});val.textContent=(c.prefix||"")+((c.dec!=null&&c.dec>0)?c.vals[i].toFixed(c.dec):Math.round(c.vals[i]).toLocaleString())+(c.suffix||"");val.style.fontSize="10px";val.style.fill=cssv("--ink");svg.appendChild(val);
     });
   }else{
@@ -867,8 +1280,8 @@ function barChart(c,horizontal){
     c.vals.forEach((v,i)=>{
       const bh=(H-pT-pB)*v/max, x=8+i*gw+gw*0.18, bw=gw*0.64, y=H-pB-bh;
       const isSel=c.labels[i]==="Base";
-      svg.appendChild(el("rect",{x:x,y:H-pB,width:bw,height:0,rx:6,fill:cssv("--accent"),opacity:isSel?1:.5,style:"transition:height .8s cubic-bezier(.2,.7,.3,1) "+(i*.08)+"s,y .8s cubic-bezier(.2,.7,.3,1) "+(i*.08)+"s"}));
-      const bar=svg.lastChild;requestAnimationFrame(()=>{bar.setAttribute("height",bh.toFixed(1));bar.setAttribute("y",y.toFixed(1));});
+      svg.appendChild(el("rect",{x:x,y:y.toFixed(1),width:bw,height:bh.toFixed(1),rx:6,class:"anim-y",
+        fill:cssv("--accent"),opacity:isSel?1:.5,style:"--d:"+(i*.08)+"s"}));
       const val=el("text",{x:x+bw/2,y:y-5,"text-anchor":"middle"});val.textContent="€"+v.toFixed(1)+"M";val.style.fontSize="10px";val.style.fill=cssv("--ink");svg.appendChild(val);
       const lab=el("text",{x:x+bw/2,y:H-7,"text-anchor":"middle"});lab.textContent=c.labels[i];svg.appendChild(lab);
     });
@@ -886,8 +1299,8 @@ function groupedChart(c){
     const base=8+i*gw+gw*0.19;
     c.series.forEach((s,j)=>{
       const v=s.vals[i], bh=(H-pT-pB)*v/max, x=base+j*bw, y=H-pB-bh;
-      svg.appendChild(el("rect",{x:x,y:H-pB,width:bw*0.86,height:0,rx:3,fill:cssv(s.color),style:"transition:height .8s cubic-bezier(.2,.7,.3,1) "+((i*ns+j)*.05)+"s,y .8s cubic-bezier(.2,.7,.3,1) "+((i*ns+j)*.05)+"s"}));
-      const bar=svg.lastChild;requestAnimationFrame(()=>{bar.setAttribute("height",bh.toFixed(1));bar.setAttribute("y",y.toFixed(1));});
+      svg.appendChild(el("rect",{x:x,y:y.toFixed(1),width:bw*0.86,height:bh.toFixed(1),rx:3,class:"anim-y",
+        fill:cssv(s.color),style:"--d:"+((i*ns+j)*.05)+"s"}));
     });
     const lab=el("text",{x:base+gw*0.31,y:H-7,"text-anchor":"middle"});lab.textContent=L;svg.appendChild(lab);
   });
@@ -932,6 +1345,159 @@ function barChartSel(c,selIdx){
   return svg;
 }
 
+
+/* ============================================================
+   WORKBOOK PREVIEW  +  LIVE DCF
+   ============================================================ */
+
+/* ---- 1. render the computed sheet extract for any project ---- */
+function wbPreview(p){
+  const d=(typeof PREVIEW!=="undefined") && PREVIEW[p.id];
+  if(!d) return "";
+  const isNum=v=>/^-?[€$]?[\d,]+(\.\d+)?%?$/.test(String(v).trim()) && /\d/.test(v);
+  // Sheets often start with a spacer column; keeping it would spend the label
+  // column's width on nothing and push the figures out of view.
+  let g=d.g.filter(r=>!(r.filter(Boolean).length===1 && String(r.find(Boolean)||"").length>55));
+  let lead=0;
+  while(lead<6 && g.length && g.every(r=>!String(r[lead]||"").trim())) lead++;
+  if(lead) g=g.map(r=>r.slice(lead));
+  const rows=g.map((r,ri)=>{
+    const hdr = ri<2 && r.filter(Boolean).length<3;
+    const tds=r.map((c,ci)=>{
+      const cls=[]; if(ci>0&&isNum(c)) cls.push("num");
+      if(String(c).trim().startsWith("-")) cls.push("neg");
+      return '<td'+(cls.length?' class="'+cls.join(" ")+'"':'')+'>'+esc(c)+'</td>';
+    }).join("");
+    return '<tr'+(hdr?' class="hdr"':'')+'>'+tds+'</tr>';
+  }).join("");
+  const forms=d.x.map(([coord,f,val])=>
+    '<code><b>'+coord+'</b>  '+esc(f)+(val?'   → <i>'+esc(val)+'</i>':'')+'</code>').join("");
+  return '<div class="wbprev">'+
+    '<div class="wbprev-head"><span class="tab">'+esc(d.n)+'</span>'+
+      '<span class="meta">'+d.s.length+' sheet'+(d.s.length>1?'s':'')+' · '+
+      d.f+' live formulas · <span class="ok">'+d.e+' errors</span></span></div>'+
+    '<div class="wbscroll"><table class="wbt"><tbody>'+rows+'</tbody></table></div>'+
+    (forms?'<div class="wbform">'+forms+'</div>':'')+
+  '</div>';
+}
+function esc(x){return String(x==null?"":x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+/* ---- 2. live DCF — Deutsche Börse (project 32) ----
+   Ported cell for cell from the workbook's DCF sheet. Verified against an
+   independent recomputation of the published file: WACC 6.0447%,
+   €332.05 per share, +13.1% vs the €293.70 market price, implied g* 1.45%. */
+const DB1={rev25:5189, da25:502, ebt:2857, tax:753, minority:109,
+  rev26:5700, ebitda26:3100, treas26:700, price:293.70, shares:180.29,
+  netDebt:4410, totalDebt:6190, rf:.026, erp:.055, beta:.70, kd:.035,
+  treasFwd:700, capexPctDA:1.1, dWC:0, minMult:20,
+  growth:[.08,.07,.06,.05], marginStep:.004, marginCap:.56};
+
+function db1Base(){
+  const taxRate=DB1.tax/DB1.ebt;
+  const ke=DB1.rf+DB1.beta*DB1.erp, kdat=DB1.kd*(1-taxRate);
+  const E=DB1.price*DB1.shares, D=DB1.totalDebt;
+  return {taxRate, wacc:(E/(E+D))*ke+(D/(E+D))*kdat, ke, kdat};
+}
+function db1FCFF(){
+  const taxRate=DB1.tax/DB1.ebt, daPct=DB1.da25/DB1.rev25;
+  const rev=[DB1.rev26]; DB1.growth.forEach(g=>rev.push(rev[rev.length-1]*(1+g)));
+  const marg=[DB1.ebitda26/DB1.rev26];
+  for(let i=0;i<4;i++) marg.push(Math.min(marg[i]+DB1.marginStep, DB1.marginCap));
+  const out=[];
+  for(let i=0;i<5;i++){
+    const ebitda=rev[i]*marg[i]+(i===0?DB1.treas26:DB1.treasFwd);
+    const da=-rev[i]*daPct, ebit=ebitda+da;
+    out.push(ebitda - ebit*taxRate + da*DB1.capexPctDA + DB1.dWC);
+  }
+  return out;
+}
+function db1Value(wacc, g){
+  const f=db1FCFF();
+  const disc=[1,2,3,4,5].map(t=>1/Math.pow(1+wacc,t));
+  const sumPV=f.reduce((a,v,i)=>a+v*disc[i],0);
+  const tv=f[4]*(1+g)/(wacc-g), pvTV=tv*disc[4];
+  const ev=sumPV+pvTV;
+  const eq=ev-DB1.netDebt-DB1.minority*DB1.minMult;
+  const ps=eq/DB1.shares;
+  const mktEV=DB1.price*DB1.shares+DB1.netDebt+DB1.minority*DB1.minMult;
+  const reqTV=(mktEV-sumPV)/disc[4];
+  return {ps, up:ps/DB1.price-1, ev, sumPV, pvTV,
+          impG:(wacc*reqTV-f[4])/(reqTV+f[4])};
+}
+const eur=n=>"€"+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct=(n,d)=>(n*100).toFixed(d==null?1:d)+"%";
+
+function liveDCF(){
+  const base=db1Base();
+  return '<div class="live">'+
+   '<div class="live-head"><span class="live-dot"></span><h5>Live model · drag to re-value</h5>'+
+     '<span class="hint">recomputes in the browser</span></div>'+
+   '<div class="live-body">'+
+    '<div class="live-ctl">'+
+      '<div class="lrow"><label for="dWacc">WACC</label>'+
+        '<input id="dWacc" type="range" min="4.5" max="8.5" step="0.01" value="'+(base.wacc*100).toFixed(2)+'">'+
+        '<output id="oWacc"></output></div>'+
+      '<div class="lrow"><label for="dG">Terminal growth</label>'+
+        '<input id="dG" type="range" min="0.0" max="3.2" step="0.01" value="2.00">'+
+        '<output id="oG"></output></div>'+
+    '</div>'+
+    '<div class="live-out">'+
+      '<div class="lo"><div class="k" id="oPS"></div><div class="l">Value per share</div></div>'+
+      '<div class="lo" id="oUpBox"><div class="k" id="oUp"></div><div class="l">vs €293.70 market</div></div>'+
+      '<div class="lo"><div class="k" id="oImp"></div><div class="l">Growth the market implies</div></div>'+
+    '</div>'+
+    '<div class="live-bar">'+
+      '<div class="lb"><span>Your model</span><span class="track"><span class="fill" id="bModel"></span></span><span class="v" id="vModel"></span></div>'+
+      '<div class="lb mkt"><span>Market</span><span class="track"><span class="fill" id="bMkt"></span></span><span class="v">€293.70</span></div>'+
+    '</div>'+
+    '<p class="live-note" id="oNote"></p>'+
+    '<button class="live-reset" id="dReset">Reset to the workbook’s base case</button>'+
+   '</div></div>';
+}
+function wireDCF(root){
+  const w=root.querySelector("#dWacc"), g=root.querySelector("#dG");
+  if(!w||!g) return;
+  const base=db1Base();
+  let curW=base.wacc, curG=0.02;
+  const paint=()=>{
+    const W=curW, G=curG;
+    w.style.setProperty("--pct",((w.value-w.min)/(w.max-w.min)*100)+"%");
+    g.style.setProperty("--pct",((g.value-g.min)/(g.max-g.min)*100)+"%");
+    root.querySelector("#oWacc").textContent=(W*100).toFixed(2)+"%";
+    root.querySelector("#oG").textContent=(G*100).toFixed(2)+"%";
+    // Gordon growth breaks down once g approaches the discount rate
+    if(G>=W-0.004){
+      root.querySelector("#oPS").textContent="n/a";
+      root.querySelector("#oUp").textContent="—";
+      root.querySelector("#oImp").textContent="—";
+      root.querySelector("#oNote").innerHTML="With terminal growth at or above WACC the Gordon formula has no finite answer — the model would be valuing perpetual growth faster than the discount rate. <b>Pull growth back below "+pct(W,2)+".</b>";
+      root.querySelector("#bModel").style.width="0%";
+      root.querySelector("#vModel").textContent="—";
+      return;
+    }
+    const r=db1Value(W,G);
+    const span=Math.max(r.ps,DB1.price)*1.12;
+    root.querySelector("#oPS").textContent=eur(r.ps);
+    const up=root.querySelector("#oUp"), box=root.querySelector("#oUpBox");
+    up.textContent=(r.up>=0?"+":"")+pct(r.up);
+    box.className="lo "+(r.up>=0?"up":"dn");
+    root.querySelector("#oImp").textContent=pct(r.impG,2);
+    root.querySelector("#bModel").style.width=(r.ps/span*100)+"%";
+    root.querySelector("#bMkt").style.width=(DB1.price/span*100)+"%";
+    root.querySelector("#vModel").textContent=eur(r.ps);
+    root.querySelector("#oNote").innerHTML= r.up>=0
+      ? "At these assumptions DB1 looks <b>"+pct(Math.abs(r.up))+" cheap</b>. The market price itself implies <b>"+pct(r.impG,2)+"</b> perpetual growth."
+      : "At these assumptions DB1 looks <b>"+pct(Math.abs(r.up))+" expensive</b>. To justify today’s price you need <b>"+pct(r.impG,2)+"</b> perpetual growth — the workbook assumes 2.00%.";
+  };
+  w.addEventListener("input",()=>{curW=+w.value/100; paint();});
+  g.addEventListener("input",()=>{curG=+g.value/100; paint();});
+  root.querySelector("#dReset").addEventListener("click",()=>{
+    curW=base.wacc; curG=0.02;
+    w.value=(base.wacc*100).toFixed(2); g.value="2.00"; paint();
+  });
+  paint();
+}
+
 /* ============ MODAL DETAIL ============ */
 const modal=document.getElementById("modal");
 const modalHead=modal.querySelector(".modal-head");
@@ -944,6 +1510,8 @@ function openModal(p){
     `<div class="chartbox"><div class="cx-head"><span class="cx-title">${p.chart.title}</span><span class="legend">${legendFor(p.chart)}</span></div><div class="chart-mount"></div></div>`+
     (p.scenario?`<div class="scenario" role="group" aria-label="Scenario switch"><button class="sbtn" data-s="0">Bear</button><button class="sbtn" data-s="1" aria-pressed="true">Base</button><button class="sbtn" data-s="2">Bull</button><span class="sval">€53.0M</span></div>`:"")+
     `<div class="result"><span class="badge ${p.result.badge}">${p.result.tag}</span><p>${p.result.html}</p></div>`+
+    (p.id===32?liveDCF():"")+
+    wbPreview(p)+
     `<div class="detail-inner"><div class="full"><h4>What I built</h4><p>${p.detail.built}</p></div><div><h4>Techniques</h4><ul>${p.detail.tech.map(t=>`<li>${t}</li>`).join("")}</ul></div><div><h4>Skills shown</h4><div class="skills">${p.detail.skills.map(x=>`<span class="t">${x}</span>`).join("")}</div></div></div>`+
     `<div class="card-actions"><a class="btn btn-primary" href="models/${p.file}" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg> Open in Excel</a><span class="spacer"></span><span class="filelabel">.xlsx</span></div>`;
   const _ch=renderChart(p.chart); if(_ch) modalBody.querySelector(".chart-mount").appendChild(_ch);
@@ -977,6 +1545,8 @@ function openModal(p){
     }));
   }
   modalHead.querySelector(".modal-close").addEventListener("click",closeModal);
+  if(p.id===32) wireDCF(modalBody);
+  if(typeof magnetise==="function") magnetise(modalBody.querySelector("a.btn-primary"));
   modal.classList.add("open"); document.body.style.overflow="hidden"; modal.scrollTop=0;
 }
 function closeModal(){ modal.classList.remove("open"); document.body.style.overflow=""; }
@@ -1008,6 +1578,87 @@ TOPICS.forEach(t=>{
   sec.appendChild(g); sectionsEl.appendChild(sec);
 });
 
+/* ============ MICRO-CHART PER INDEX ROW ============ */
+/* Pulls the real series out of each project's chart spec, so the index
+   shows 32 actual shapes rather than 32 identical ornaments. */
+function seriesFor(p){
+  const c=p.chart||{};
+  if(c.type==="dualline")     return {kind:"line", v:c.b||c.a||[]};
+  if(c.type==="covenant")     return {kind:"line", v:c.a||[]};
+  if(c.type==="margins")      return {kind:"line", v:c.ebitda||c.gross||[]};
+  if(c.type==="grouped")      return {kind:"bars", v:(c.series&&c.series[0]&&c.series[0].vals)||[]};
+  if(c.type==="hbars"||c.type==="scenariobars") return {kind:"bars", v:c.vals||[]};
+  return {kind:"bars", v:[]};
+}
+function microChart(p){
+  const s0=seriesFor(p); let v=(s0.v||[]).filter(x=>typeof x==="number"&&isFinite(x));
+  if(v.length<2) return '<svg class="ix-c" viewBox="0 0 88 26" preserveAspectRatio="none" aria-hidden="true"></svg>';
+  if(v.length>14) v=v.slice(0,14);
+  const W=88,H=26,mn=Math.min(...v),mx=Math.max(...v),span=(mx-mn)||1;
+  let inner="";
+  if(s0.kind==="line"){
+    const pts=v.map((y,i)=>[ (i*(W/(v.length-1))).toFixed(1), (H-2-((y-mn)/span)*(H-6)).toFixed(1) ]);
+    inner='<path d="'+pts.map((q,i)=>(i?"L":"M")+q[0]+" "+q[1]).join(" ")+'"/>';
+  }else{
+    const n=v.length, gw=W/n, bw=Math.max(2,gw*0.62);
+    inner=v.map((y,i)=>{
+      const h=Math.max(2,((y-mn)/span)*(H-6)+3);
+      return '<rect x="'+(i*gw+(gw-bw)/2).toFixed(1)+'" y="'+(H-h).toFixed(1)+
+             '" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="1"/>';
+    }).join("");
+  }
+  return '<svg class="ix-c" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true">'+inner+'</svg>';
+}
+
+/* ============ INDEX TABLE (research-note contents) ============ */
+const ixrows=document.getElementById("ixrows");
+const AREA_SHORT={
+  "FP&A":"FP&A","Valuation":"Valuation","Portfolio":"Portfolio","Strategy":"Strategy","Analytics":"Analytics",
+  "Enterprise & LRP":"Enterprise · LRP","Liquidity Control":"Liquidity","Revenue Management":"Revenue Mgmt",
+  "ETF Analytics":"ETF Analytics"
+};
+let _lastArea=null;
+TOPICS.forEach(t=>{
+  const items=PROJECTS.filter(p=>(p.cat[0]||"")===t.key);
+  if(!items.length) return;
+  const g=document.createElement("div");
+  g.className="ixgroup"; g.dataset.topic=t.key;
+  g.innerHTML='<span class="g-t">'+(t.label||t.key)+'</span><span class="g-r"></span>'+
+    '<span class="g-n">'+items.length+'</span>';
+  ixrows.appendChild(g);
+  items.forEach(p=>ixrows.appendChild(ixrow(p)));
+});
+function ixrow(p){
+  const area=p.cat[0]||"";
+  const b=document.createElement("button");
+  b.className="ixrow"; b.type="button"; b.dataset.topic=area;
+  b.innerHTML='<span class="ix-n">'+String(p.id).padStart(2,"0")+'</span>'+
+    '<span class="ix-t"><strong>'+p.title+'</strong><span>'+p.q+'</span></span>'+
+    '<span class="ix-cw">'+microChart(p)+'</span>'+
+    '<span class="ix-a">'+(AREA_SHORT[area]||area)+'</span>'+
+    '<span class="ix-s"><span class="badge '+p.result.badge+'">'+p.result.tag+'</span><span class="arr">›</span></span>';
+  b.addEventListener("click",()=>openModal(p));
+  return b;
+}
+
+/* ============ BENTO: SKILL AREAS ============ */
+const areasEl=document.getElementById("areas"), areanote=document.getElementById("areanote");
+const areaCounts={};
+TOPICS.forEach(t=>areaCounts[t.key]=PROJECTS.filter(p=>(p.cat[0]||"")===t.key).length);
+const LIVE=TOPICS.filter(t=>areaCounts[t.key]>0);
+LIVE.forEach((t,i)=>{
+  const n=areaCounts[t.key];
+  const size = i<2 ? " wide" : (i===LIVE.length-1 ? " full" : "");
+  const b=document.createElement("button");
+  b.className="ax"+size;
+  b.type="button"; b.dataset.topic=t.key; b.setAttribute("aria-pressed","false");
+  b.innerHTML='<div class="ax-top"><span class="ax-n">'+n+'<small>models</small></span></div>'+
+    '<div class="ax-body"><h3>'+(t.label||t.key)+'</h3><p>'+t.desc+'</p></div>';
+  b.addEventListener("click",()=>setFilter(active===t.key?"All":t.key));
+  areasEl.appendChild(b);
+});
+areanote.textContent=TOPICS.length+" areas · "+PROJECTS.length+" models";
+
 /* ============ DROPDOWN (jump to project) ============ */
 const sel=document.getElementById("projectSelect");
 TOPICS.forEach(t=>{
@@ -1018,25 +1669,63 @@ TOPICS.forEach(t=>{
 });
 sel.addEventListener("change",()=>{ const id=+sel.value; const p=PROJECTS.find(x=>x.id===id); if(p) openModal(p); sel.value=""; });
 
-/* ============ FILTERS (by topic section) ============ */
+/* ============ FILTERS (chips + bento tiles, one source of truth) ============ */
 const fbar=document.getElementById("filters"), countnote=document.getElementById("countnote");
 let active="All";
 function applyFilter(){
   let shown=0;
-  document.querySelectorAll(".topic").forEach(sec=>{
-    const on = active==="All" || sec.dataset.topic===active;
-    sec.style.display = on ? "" : "none";
-    if(on) shown += sec.querySelectorAll(".tile").length;
+  document.querySelectorAll(".ixrow").forEach(r=>{
+    const on = active==="All" || r.dataset.topic===active;
+    r.classList.toggle("hide",!on); if(on) shown++;
   });
-  countnote.textContent=shown+" / "+PROJECTS.length+" projects";
+  document.querySelectorAll(".ixgroup").forEach(g=>{
+    g.classList.toggle("hide", active!=="All");
+  });
+  document.querySelectorAll(".topic").forEach(sec=>{
+    sec.style.display = (active==="All" || sec.dataset.topic===active) ? "" : "none";
+  });
+  document.querySelectorAll(".ax").forEach(a=>a.setAttribute("aria-pressed", String(a.dataset.topic===active)));
+  fbar.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed", String(c.textContent===active)));
+  countnote.textContent=shown+" / "+PROJECTS.length+" models shown";
 }
+function setFilter(f){ active=f; applyFilter(); }
 FILTERS.forEach(f=>{
   const b=document.createElement("button");b.className="chip";b.textContent=f;
-  b.setAttribute("aria-pressed",f==="All");
-  b.addEventListener("click",()=>{active=f;fbar.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");applyFilter();});
+  b.setAttribute("aria-pressed",String(f==="All"));
+  b.addEventListener("click",()=>setFilter(f));
   fbar.appendChild(b);
 });
 applyFilter();
+
+/* ============ VIEW SWITCH (index / cards) ============ */
+const vIndex=document.getElementById("vIndex"), vCards=document.getElementById("vCards");
+const indexview=document.getElementById("indexview"), cardsview=document.getElementById("cardsview");
+function setView(v){
+  const isIdx=v==="index";
+  indexview.hidden=!isIdx; cardsview.hidden=isIdx;
+  vIndex.setAttribute("aria-pressed",String(isIdx));
+  vCards.setAttribute("aria-pressed",String(!isIdx));
+}
+vIndex.addEventListener("click",()=>setView("index"));
+vCards.addEventListener("click",()=>setView("cards"));
+
+/* ============ HERO SPARKLINE ============ */
+(function(){
+  const svg=document.getElementById("spark"); if(!svg) return;
+  const v=[3300,3450,3900,3780,3960,3900,3700,3540,4250,4480,4950,6290];
+  const W=320,H=46,mn=Math.min(...v),mx=Math.max(...v);
+  const pts=v.map((y,i)=>[i*(W/(v.length-1)), H-4-((y-mn)/(mx-mn))*(H-10)]);
+  const d=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  const NSU="http://www.w3.org/2000/svg";
+  const area=document.createElementNS(NSU,"path");
+  area.setAttribute("d",d+" L"+W+" "+H+" L0 "+H+" Z");
+  area.setAttribute("fill","currentColor"); area.setAttribute("opacity",".10");
+  const line=document.createElementNS(NSU,"path");
+  line.setAttribute("d",d); line.setAttribute("fill","none");
+  line.setAttribute("stroke","currentColor"); line.setAttribute("stroke-width","2");
+  line.setAttribute("stroke-linecap","round"); line.setAttribute("stroke-linejoin","round");
+  svg.appendChild(area); svg.appendChild(line);
+})();
 
 /* ============ DRIVE FOLDER LINK (copy fallback for sandboxed viewers) ============ */
 const dfl=document.getElementById("driveFolder");
@@ -1053,7 +1742,7 @@ tbtn.addEventListener("click",()=>{
 
 /* ============ COUNT-UP STATS ============ */
 function animateCounts(){
-  document.querySelectorAll(".stat .k").forEach(k=>{
+  document.querySelectorAll(".bx .bk").forEach(k=>{
     const target=+k.dataset.count, dec=+(k.dataset.dec||0), pre=k.dataset.prefix||"", suf=k.dataset.suffix||"";
     const dur=1100, t0=performance.now();
     function step(t){let p=Math.min(1,(t-t0)/dur);p=1-Math.pow(1-p,3);
@@ -1063,8 +1752,138 @@ function animateCounts(){
     requestAnimationFrame(step);
   });
 }
+/* ============================================================
+   MOTION LAYER
+   ============================================================ */
+const REDUCED = matchMedia("(prefers-reduced-motion:reduce)").matches;
+const FINE    = matchMedia("(pointer:fine)").matches;
+
+/* ---- 1. ticker built from each model's headline number ---- */
+(function(){
+  const track=document.getElementById("tickTrack"); if(!track) return;
+  const items=ORDERED_ALL().map(p=>{
+    const m=(p.result.html||"").match(/<b>(.*?)<\/b>/);
+    const val=m?m[1].replace(/<[^>]*>/g,""):p.result.tag;
+    const cls=p.result.badge==="pos"?"up":(p.result.badge==="neg"?"dn":"fl");
+    return '<span class="tk"><i>'+String(p.id).padStart(2,"0")+'</i>'+
+           '<span>'+p.eyebrow.split("·")[0].trim()+'</span>'+
+           '<b class="'+cls+'">'+val+'</b></span>';
+  });
+  // duplicated once so the -50% keyframe loops seamlessly
+  track.innerHTML=items.join("")+items.join("");
+})();
+function ORDERED_ALL(){const o=[];TOPICS.forEach(t=>PROJECTS.filter(p=>(p.cat[0]||"")===t.key).forEach(p=>o.push(p)));return o;}
+
+/* ---- 2. magnetic headline: per-character pull toward the cursor ---- */
+(function(){
+  const h1=document.querySelector(".hero h1"); if(!h1||REDUCED||!FINE) return;
+  // split text nodes into chars, leaving <em>/<span> structure intact
+  (function split(node){
+    [...node.childNodes].forEach(n=>{
+      if(n.nodeType===3){
+        const frag=document.createDocumentFragment();
+        n.nodeValue.split(/(\s+)/).forEach(tok=>{
+          if(tok==="") return;
+          if(/^\s+$/.test(tok)){ frag.appendChild(document.createTextNode(" ")); return; }
+          const w=document.createElement("span"); w.className="mw";
+          [...tok].forEach(ch=>{
+            const sp=document.createElement("span"); sp.className="mc"; sp.textContent=ch;
+            w.appendChild(sp);
+          });
+          frag.appendChild(w);
+        });
+        n.replaceWith(frag);
+      } else if(n.nodeType===1) split(n);
+    });
+  })(h1);
+  const chars=[...h1.querySelectorAll(".mc")]; if(!chars.length) return;
+  let boxes=[], mx=0, my=0, active=false, last=0;
+  const measure=()=>{boxes=chars.map(c=>{const r=c.getBoundingClientRect();
+    return {x:r.left+r.width/2, y:r.top+r.height/2};});};
+  measure();
+  addEventListener("resize",measure,{passive:true});
+  addEventListener("scroll",measure,{passive:true});
+  const R=170;                       // influence radius in px
+  function frame(){
+    for(let i=0;i<chars.length;i++){
+      const b=boxes[i], dx=mx-b.x, dy=my-b.y;
+      const d=Math.hypot(dx,dy);
+      if(!active||d>R){ chars[i].style.transform=""; continue; }
+      const f=1-d/R;                  // 0 at the edge, 1 under the cursor
+      const e=f*f;                    // ease so only the nearest few react
+      chars[i].style.transform="translate("+(dx*0.11*e).toFixed(2)+"px,"+
+        (dy*0.11*e).toFixed(2)+"px) scale("+(1+0.30*e).toFixed(3)+")";
+    }
+  }
+  h1.addEventListener("pointerenter",()=>{active=true; h1.classList.add("mag-live"); measure();});
+  h1.addEventListener("pointerleave",()=>{active=false; h1.classList.remove("mag-live"); frame();});
+  addEventListener("pointermove",e=>{
+    if(!active) return;
+    mx=e.clientX; my=e.clientY;
+    const t=e.timeStamp||0;
+    if(t && t-last < 8) return;   // guard against synthetic bursts
+    last=t; frame();
+  },{passive:true});
+})();
+
+/* ---- 3. hero crosshair ---- */
+(function(){
+  const hero=document.querySelector(".hero"), x=document.getElementById("xhair");
+  if(!hero||!x||REDUCED||!FINE) return;
+  const v=x.querySelector(".xv"), h=x.querySelector(".xh"), d=x.querySelector(".xd");
+  hero.addEventListener("pointermove",e=>{
+    const r=hero.getBoundingClientRect();
+    const px=(e.clientX-r.left)+"px", py=(e.clientY-r.top)+"px";
+    v.style.left=px; h.style.top=py; d.style.left=px; d.style.top=py;
+  },{passive:true});
+})();
+
+/* ---- 4. pointer spotlight on bento tiles ---- */
+if(!REDUCED && FINE){
+  document.querySelectorAll(".bx,.ax,.tile").forEach(el=>{
+    el.addEventListener("pointermove",e=>{
+      const r=el.getBoundingClientRect();
+      if(!r.width||!r.height) return;   // hidden view: a 0/0 divide would write NaN% into the var
+      el.style.setProperty("--mx",((e.clientX-r.left)/r.width*100).toFixed(1)+"%");
+      el.style.setProperty("--my",((e.clientY-r.top)/r.height*100).toFixed(1)+"%");
+    },{passive:true});
+  });
+}
+
+/* ---- 5. scroll reveal ---- */
+(function(){
+  // The index itself is never hidden: a dense contents page should feel instant,
+  // and 32 staggered rows read as sluggish rather than crafted.
+  const targets=[...document.querySelectorAll(".bx,.ax,.method")];
+  const show=()=>targets.forEach(t=>t.classList.add("in"));
+  if(REDUCED||!("IntersectionObserver" in window)){show();return;}
+  targets.forEach(t=>t.classList.add("rv"));
+  const io=new IntersectionObserver((es)=>{
+    es.forEach((en,i)=>{ if(!en.isIntersecting) return;
+      const el=en.target;
+      el.style.transitionDelay=Math.min(i*30,180)+"ms";
+      el.classList.add("in"); io.unobserve(el);
+    });
+  },{rootMargin:"0px 0px -8% 0px", threshold:.06});
+  targets.forEach(t=>io.observe(t));
+  // Fail-safe: opacity:0 must never be able to strand the page blank.
+  // If the observer has not reported within 1.2s for any reason, reveal everything.
+  setTimeout(show,1200);
+})();
+
+/* ---- 6. magnetic primary button (modal CTA is created on open) ---- */
+function magnetise(btn){
+  if(REDUCED||!FINE||!btn||btn._mag) return; btn._mag=true;
+  btn.addEventListener("pointermove",e=>{
+    const r=btn.getBoundingClientRect();
+    btn.style.transform="translate("+((e.clientX-r.left-r.width/2)*0.22).toFixed(1)+"px,"+
+      ((e.clientY-r.top-r.height/2)*0.3).toFixed(1)+"px)";
+  },{passive:true});
+  btn.addEventListener("pointerleave",()=>{btn.style.transform="";});
+}
+
 if(matchMedia("(prefers-reduced-motion:reduce)").matches){
-  document.querySelectorAll(".stat .k").forEach(k=>{const dec=+(k.dataset.dec||0);k.textContent=(k.dataset.prefix||"")+(dec?(+k.dataset.count).toFixed(dec):(+k.dataset.count).toLocaleString())+(k.dataset.suffix||"");});
+  document.querySelectorAll(".bx .bk").forEach(k=>{const dec=+(k.dataset.dec||0);k.textContent=(k.dataset.prefix||"")+(dec?(+k.dataset.count).toFixed(dec):(+k.dataset.count).toLocaleString())+(k.dataset.suffix||"");});
 }else{animateCounts();}
 </script>
 </body>
