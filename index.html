@@ -352,7 +352,15 @@ body::after{opacity:.30}
 .bx-lead .bk{font-size:clamp(46px,7vw,82px); line-height:.92; color:var(--ink)}
 .bx-lead .bl{font-size:var(--fs-lead); color:var(--ink); font-weight:600; margin-top:10px}
 .bx-lead .bsub{font-size:var(--fs-small); color:var(--muted); margin-top:4px}
-.bx-spark{margin-top:14px; display:block; width:100%; height:46px; color:var(--accent)}
+.spark-wrap{margin-top:14px; position:relative}
+.bx-spark{display:block; width:100%; height:46px; color:var(--accent); overflow:visible}
+.spark-dot{position:absolute; width:7px; height:7px; border-radius:50%; background:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 24%,transparent);
+  transform:translate(-50%,-50%); pointer-events:none; opacity:0}
+.spark-axis{display:flex; justify-content:space-between; margin-top:7px;
+  font:700 11px/1 var(--mono); letter-spacing:.16em; text-transform:uppercase; color:var(--faint)}
+.spark-cap{margin-top:8px; font:600 var(--fs-micro)/1.5 var(--mono); color:var(--muted); letter-spacing:.01em}
+.spark-cap b{color:var(--ink); font-weight:700}
 @media (max-width:880px){
   .bento-stats{grid-template-columns:repeat(2,1fr)}
   .bx-lead{grid-column:span 2; grid-row:span 1}
@@ -690,7 +698,12 @@ table.wbt tr:hover td{background:color-mix(in srgb,var(--accent) 7%, transparent
           <div class="bl">Excel models, built from scratch</div>
           <div class="bsub">Across nine skill areas, all reconciling to one company.</div>
         </div>
-        <svg class="bx-spark" id="spark" viewBox="0 0 320 46" preserveAspectRatio="none" role="img" aria-label="Modelled revenue trend"></svg>
+        <div class="spark-wrap">
+          <svg class="bx-spark" id="spark" viewBox="0 0 320 46" preserveAspectRatio="none" role="img"></svg>
+          <span class="spark-dot" id="sparkDot"></span>
+          <div class="spark-axis"><span>Jan</span><span>Dec</span></div>
+          <div class="spark-cap" id="sparkCap"></div>
+        </div>
       </div>
       <div class="bx"><div class="bk" data-count="49.5" data-prefix="€" data-suffix="M" data-dec="1">0</div><div class="bl">Revenue modelled</div></div>
       <div class="bx"><div class="bk" data-count="9" data-suffix="">0</div><div class="bl">Skill areas</div></div>
@@ -1716,6 +1729,23 @@ vCards.addEventListener("click",()=>setView("cards"));
   const W=320,H=46,mn=Math.min(...v),mx=Math.max(...v);
   const pts=v.map((y,i)=>[i*(W/(v.length-1)), H-4-((y-mn)/(mx-mn))*(H-10)]);
   const d=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  // caption and endpoint are computed from v, so they cannot drift from the line
+  const m1=x=>"€"+(x/1000).toFixed(1)+"M";
+  const total=v.reduce((a,b)=>a+b,0);
+  const cap=document.getElementById("sparkCap");
+  if(cap) cap.innerHTML="FY2025 revenue · <b>"+m1(v[0])+" → "+m1(v[v.length-1])+
+    "</b> · sums to <b>"+m1(total)+"</b>";
+  svg.setAttribute("aria-label",
+    "Helios FY2025 monthly revenue, "+m1(v[0])+" in January rising to "+m1(v[v.length-1])+
+    " in December, totalling "+m1(total));
+  const dot=document.getElementById("sparkDot"), last=pts[pts.length-1];
+  if(dot){
+    // viewBox height is 46 and the element is 46px tall, so y maps 1:1;
+    // x is stretched, so it has to be expressed as a percentage
+    dot.style.left=(last[0]/W*100).toFixed(2)+"%";
+    dot.style.top=last[1].toFixed(1)+"px";
+    dot.style.opacity="1";
+  }
   const NSU="http://www.w3.org/2000/svg";
   const area=document.createElementNS(NSU,"path");
   area.setAttribute("d",d+" L"+W+" "+H+" L0 "+H+" Z");
